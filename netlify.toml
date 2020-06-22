@@ -1,2 +1,4 @@
 [build]
     functions = "lambda"
+    Command = "gatsby build"
+    publish = "public"
