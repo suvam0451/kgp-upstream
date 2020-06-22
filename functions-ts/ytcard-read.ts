@@ -3,7 +3,7 @@ import axios from 'axios'
 import { callbackify } from 'util'
 
 /* */
-exports.handler = (event: any, context: any, callback: Function) => {
+exports.handler = async (event: any, context: any, callback: Function) => {
   // Client Init
   // let _secret = process.env.FAUNADB_SECRET_SUMMERINTERN!
   // console.log('tarde secret was: ', _secret)
@@ -16,17 +16,18 @@ exports.handler = (event: any, context: any, callback: Function) => {
     // .query(q.Match(q.Index('all_cards'), 'mainpage'))
     .query(q.Get(q.Ref(q.Collection('youtubecards'), '268850065239441939')))
     .then((res: any) => {
-      console.log(res)
+      console.log('success', res)
       // return new Promise(resolve => {
       //   resolve({ statuscode: 200, body: JSON.stringify(res) })
-      // return {
-      //   statuscode: 200,
-      //   body: JSON.stringify(res)
-      // }
-      callback({
-        status: 200,
-        data: JSON.stringify(res)
-      })
+      return {
+        statusCode: 200,
+        // body: JSON.stringify(res)
+        body: 'Hello!'
+      }
+      // callback({
+      //   status: 200,
+      //   data: JSON.stringify(res)
+      // })
       // resolve(AxiosResponse)
       // return {
       //   status: 200,
@@ -34,18 +35,18 @@ exports.handler = (event: any, context: any, callback: Function) => {
       // }
       // })
     })
-    .catch(err => {
+    .catch((err: Error) => {
       console.log(err)
       // return new Promise(resolve => {
       //   resolve({ statuscode: 401, body: JSON.stringify([]) })
-      callback({
-        status: 401,
-        data: JSON.stringify(err)
-      })
-      // return {
+      // callback({
       //   status: 401,
       //   data: JSON.stringify(err)
-      // }
+      // })
+      return {
+        statusCode: 400,
+        data: JSON.stringify(err)
+      }
       // })
       // return {
       //   statuscode: 401,

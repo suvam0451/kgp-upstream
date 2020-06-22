@@ -29,12 +29,12 @@ function IndexPage() {
     let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/
     if (ex.test(value)) {
       YTAPI.read().then(res => {
-        console.log('There it is. Sample obtained...', res)
+        console.log('There it is. Sample obtained after success...', res)
         setMyLinkArray(res)
       })
     } else {
       YTAPI.read().then(res => {
-        console.log('There it is. Sample obtained...', res)
+        console.log('There it is. Sample obtained after failure...', res)
         setMyLinkArray(res)
       })
       // handle turning the border red to indicate warnings

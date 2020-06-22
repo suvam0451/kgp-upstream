@@ -12,11 +12,22 @@ interface YoutubeEmbedData {
 async function _read() {
   console.log('Starting a read...')
   // let yeet = await axios.get('/.netlify/functions/ytcard-read')
-  let res = await axios.get('/.netlify/functions/ytcard-read')
-  console.log('Resolution was: ', res)
-  // .then(res => {
-  //   console.log(res.json())
-  return res.data
+  return fetch('/.netlify/functions/ytcard-read').then(res => {
+    // console.log(res.json())
+    return res.json()
+    // res.json().then(x => {
+    //   console.log('resolution was', x)
+    //   return x
+    // })
+    // console.log('Resolution was: ', res.)
+    // .then(res => {
+    //   console.log(res.json())
+    // return res.body
+  })
+  // .then((data: any) => {
+  //   console.log(data.body)
+  // })
+
   // })
   // console.log(yeet.data)
   // then(
