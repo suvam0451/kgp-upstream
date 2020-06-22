@@ -6,10 +6,10 @@ exports.handler = function (event, context, callback) {
     var client = new faunadb_1.Client({
         secret: process.env.FAUNADB_SECRET_SUMMERINTERN
     });
-    return client.query(faunadb_1.query.Get(faunadb_1.query.Ref(faunadb_1.query.Collection('youtubecards'), '268850065239441939'))).then(function (res) {
-        console.log(res);
-        var retval = { statusCode: 200, body: res };
-        console.log('Resolving the promise', retval);
+    // client.query(q.Match(q.Index('all_cards'), 'mainpage'))
+    // return client.query(q.Get(q.Ref(q.Collection('youtubecards'), '268850065239441939'))).then(res => {
+    return client.query(faunadb_1.query.Paginate(faunadb_1.query.Match(faunadb_1.query.Index('all_cards'), 'mainpage'), { before: null })).then(function (res) {
+        console.log('query response was', res);
         return {
             statusCode: 200,
             body: JSON.stringify(res)

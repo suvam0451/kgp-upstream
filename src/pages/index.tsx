@@ -1,13 +1,13 @@
-import React, { useState, EventHandler } from 'react'
+import React, { useState, EventHandler, useRef } from 'react'
 import { Link } from 'gatsby'
 
 import Page from '../components/Page'
 import Container from '../components/Container'
 import { Helmet } from 'react-helmet'
-import { YoutubeExhibit, YoutubeSingleton } from '../components/special/YoutubeExhibit'
+import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
 import { Footer } from '../components/decorators'
 
-import YTAPI from '../api/youtubecards'
+import YTAPI, { YoutubeCardResult } from '../api/youtubecards'
 
 import NavBar from '../components/NavBar'
 // import IndexLayout from '../layouts'
@@ -18,13 +18,20 @@ import '../components/special/fonts.scss'
 
 function IndexPage() {
   // STATE
-  const [myLinkArray, setMyLinkArray] = useState()
+  const [myLinkArray, setMyLinkArray] = useState(<></>)
+  const [cardLinks, setCardLinks] = useState(['okay', 'k'])
+  // const inputEle = useRef(null)
+  // const carousalRef = useRef()
 
   function requestLinks(e: React.FormEvent<HTMLInputElement>) {
     let target = e.target // element data
     let value = e.currentTarget.value // gets text
     let name = e.currentTarget.name // if named, else empty string
-    // setMyLinkArray('Hello world !!!')
+    setMyLinkArray(
+      <>
+        <p>'loading...'</p>
+      </>
+    ) // Loading screen
 
     let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/
     if (ex.test(value)) {
@@ -33,13 +40,24 @@ function IndexPage() {
         setMyLinkArray(res)
       })
     } else {
-      YTAPI.read().then(res => {
-        console.log('There it is. Sample obtained after failure...', res)
-        setMyLinkArray(res)
+      YTAPI.read().then((res: YoutubeCardResult) => {
+        const retval: any = [] // Returned React component
+        if (typeof res == 'undefined') {
+          console.log('Failed to obtain API data')
+        } else {
+          console.log('Sample obtained after failure...', res)
+          // loop out the inks
+          let cardlinks: string[] = []
+          res.data.forEach(linkobject => {
+            cardlinks = cardlinks.concat(linkobject.link)
+          })
+          retval.push(
+            <YoutubeExhibit src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" cardlinks={cardlinks} />
+          )
+          setMyLinkArray(retval)
+        }
       })
-      // handle turning the border red to indicate warnings
     }
-    // https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG\
   }
   return (
     <>
@@ -51,7 +69,7 @@ function IndexPage() {
       <Page>
         <Container>
           <h1>Introduction page</h1>
-          <p>{myLinkArray}</p>
+
           <p>
             This means that, right now anyone with access to this page can add/remove videos. Of course, we won't need that in aproduction
             site. This is just to demonstrate that videos can be dynamically added via youtube/facebook API... or someone can add the links
@@ -78,7 +96,8 @@ function IndexPage() {
             <input onChange={requestLinks} />
             <button>Submit</button>
           </form>
-          <YoutubeExhibit src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" />
+          <>{myLinkArray}</>
+          <YoutubeExhibit src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" cardlinks={cardLinks} />
           <h3>Adding links</h3>
           <p>
             For now try adding a few more links to the database. Here are some links for example (straight up youtube links won't work. The

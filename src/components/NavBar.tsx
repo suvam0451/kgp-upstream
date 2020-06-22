@@ -1,22 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
-import {
-  Alignment,
-  Button,
-  Intent,
-  Breadcrumbs,
-  Breadcrumb,
-  IBreadcrumbProps,
-  Icon,
-  Card,
-  Navbar,
-  NavbarHeading,
-  NavbarDivider,
-  NavbarGroup,
-  Classes
-} from '@blueprintjs/core'
-import Image from 'gatsby-image'
-// import Hamburger from '../../content/images/hamburger-menu.png'
+import { Navbar, NavbarHeading } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
 const ComponentStyle = styled('div')`
@@ -41,10 +25,28 @@ const MobileNavbar = styled('div')`
 
 function NavSection() {
   const [Collapsed, setCollapsed] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
+
+  /** 1. Changes drop shadow after user scrolls far enough */
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const isScrolled = window.scrollY > 10
+  //     if (isScrolled !== scrolled) {
+  //       setScrolled(!scrolled)
+  //     }
+  //   }
+  //   document.addEventListener('scroll', handleScroll, { passive: true })
+
+  //   // Clean up after unmount
+  //   return () => {
+  //     document.removeEventListener('scroll', handleScroll)
+  //   }
+  // })
 
   function MobileMenuToggle() {
     setCollapsed(!Collapsed)
   }
+
   return (
     <ComponentStyle>
       <Navbar>

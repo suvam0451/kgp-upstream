@@ -3,23 +3,16 @@ import axios from 'axios'
 import { callbackify } from 'util'
 import { resolve } from 'dns'
 
-interface FaunaResult {
-  statusCode: number
-  body: any
-}
-
 /* */
 exports.handler = (event: any, context: any, callback: Function) => {
   const client = new Client({
     secret: process.env.FAUNADB_SECRET_SUMMERINTERN!
   })
 
-  return client.query(q.Get(q.Ref(q.Collection('youtubecards'), '268850065239441939'))).then(res => {
-    console.log(res)
-
-    let retval: FaunaResult = { statusCode: 200, body: res }
-
-    console.log('Resolving the promise', retval)
+  // client.query(q.Match(q.Index('all_cards'), 'mainpage'))
+  // return client.query(q.Get(q.Ref(q.Collection('youtubecards'), '268850065239441939'))).then(res => {
+  return client.query(q.Paginate(q.Match(q.Index('all_cards'), 'mainpage'), { before: null })).then(res => {
+    console.log('query response was', res)
     return {
       statusCode: 200,
       body: JSON.stringify(res)

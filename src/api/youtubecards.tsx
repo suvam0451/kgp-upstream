@@ -5,33 +5,25 @@ interface YoutubeEmbedData {
   desc: string
 }
 
-// interface FaunaResult {
-//   statusCode: number
-//   body: any
-// }
+export interface YoutubeCardResult {
+  ref: any
+  ts: number
+  data: {
+    desc?: string
+    id: string
+    link: string
+    tags: string
+  }[]
+}
 
 // interface ResponseType {
 //   statuscode: number
 //   data: string
 // }
 async function _read() {
-  console.log('Starting a read...')
-  // let yeet = await axios.get('/.netlify/functions/ytcard-read')
   return fetch('/.netlify/functions/ytcard-read')
     .then((res: any) => {
-      // console.log(res.json())
-      console.log('At least the promise was resolved...')
-
-      console.log('tag result was ', res)
       return res.json()
-      // res.json().then(x => {
-      //   console.log('resolution was', x)
-      //   return x
-      // })
-      // console.log('Resolution was: ', res.)
-      // .then(res => {
-      //   console.log(res.json())
-      // return res.body
     })
     .catch(() => {
       console.log('Unknown error occured !')
