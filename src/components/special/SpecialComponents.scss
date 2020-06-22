@@ -1,0 +1,121 @@
+// omport
+
+@charset "UTF-8";
+
+$screen_breakpoints: (
+  'phone': 320px,
+  'tablet': 768px,
+  'desktop': 1024px
+) !default;
+
+$unit-intervals: (
+  'px': 1,
+  'em': 0.01,
+  'rem': 0.1
+) !default;
+
+// Variables
+$tile-bg: #c6538e;
+
+@keyframes pulse {
+  0% {
+    background: $tile-bg;
+    transform: scale(1);
+  }
+  25% {
+    background: darken($tile-bg, 10%);
+    transform: scale(1.015);
+  }
+
+  50% {
+    background: $tile-bg;
+    transform: scale(1);
+  }
+}
+
+.ytstandalone {
+  @apply bg-red-200;
+}
+
+.ytstandalone:hover {
+  @apply bg-red-200;
+  transform: translateY(10px);
+  animation: ease infinite pulse;
+}
+
+// for loop example
+@for $i from 1 through 3 {
+  .tile-#{$i} {
+    margin-left: 100px * #{$i};
+  }
+}
+
+.ytstandalone:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+// ------------------
+// YT carousal and it's cards
+.ytcarousal {
+  @apply bg-gray-200;
+}
+
+.ytcard {
+  @apply mx-48;
+  @apply my-8;
+  @apply text-center;
+}
+
+$break-min: 0px;
+$break-small: 1000px;
+$break-large: 2000px;
+
+.include-media-test {
+  @media screen and (min-width: $break-min) {
+    width: 500px;
+    float: none;
+  }
+
+  @media screen and (min-width: $break-small) {
+    width: 800px;
+    float: right;
+  }
+
+  //   @include media('<=phone') {
+  //     background-color: #def;
+
+  //     &::before {
+  //       content: '<=phone';
+  //     }
+  //   }
+
+  //   @include media('>phone') {
+  //     background-color: #abc;
+
+  //     &:before {
+  //       content: '>phone';
+  //     }
+  //   }
+
+  //   @include media('>=815px', '<desktop') {
+  //     background-color: #fed;
+
+  //     &:before {
+  //       content: '>=815px, <desktop';
+  //     }
+  //   }
+
+  //   @include media('>=desktop') {
+  //     background-color: #fab;
+
+  //     &:before {
+  //       content: '>=desktop';
+  //     }
+  //   }
+
+  //   @include media('retina2x') {
+  //     &:after {
+  //       content: 'Retina' !important;
+  //     }
+  //   }
+}

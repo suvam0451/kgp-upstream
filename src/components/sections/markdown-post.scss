@@ -1,0 +1,6 @@
+@import '../../mixins/center.scss';
+
+.markdownpost {
+  // max-width: 1080px;
+  @include centerx(1080px);
+}

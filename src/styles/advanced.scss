@@ -1,0 +1,5 @@
+p {
+  body.no-touch & {
+    display: none; // hide the message if not on a touch device
+  }
+}

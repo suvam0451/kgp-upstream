@@ -1,0 +1,193 @@
+// DEFAULTS
+$fs-font-size: 18px;
+// $font
+
+// ---------------------------
+// PARAMETERS (font breakpoints)
+
+$p-font-sizes: (
+  // font + line height
+    null: (15px, 1.3),
+  480px: (16px, 1.3),
+  640px: (17px, 1.4),
+  1024px: (19px, 1.45)
+);
+
+$h1-font-sizes: (
+  null: (
+    28px,
+    1.3
+  ),
+  480px: (
+    31px,
+    1.3
+  ),
+  640px: (
+    33px,
+    1.4
+  ),
+  1024px: (
+    36px,
+    1.45
+  )
+);
+
+$h2-font-sizes: (
+  null: 24px,
+  480px: 27px,
+  640px: 29px,
+  1024px: 32px
+);
+
+$h3-font-sizes: (
+  null: (
+    20px,
+    1.3
+  ),
+  480px: (
+    23px,
+    1.3
+  ),
+  640px: (
+    25px,
+    1.4
+  ),
+  1024px: (
+    28px,
+    1.45
+  )
+);
+
+$h4-font-sizes: (
+  null: 28px,
+  480px: 31px,
+  640px: 33px,
+  1024px: 36px
+);
+
+$h5-font-sizes: (
+  null: 28px,
+  480px: 31px,
+  640px: 33px,
+  1024px: 36px
+);
+
+$h6-font-sizes: (
+  null: (
+    17px,
+    1.3
+  ),
+  480px: (
+    18px,
+    1.3
+  ),
+  640px: (
+    19px,
+    1.4
+  ),
+  1024px: (
+    20px,
+    1.45
+  )
+);
+
+$type-scale: (
+  -1: 0.75rem,
+  // small text
+    0: 1rem,
+  // body text
+    1: 1.333rem,
+  // large text
+    2: 1.777rem // main heading
+);
+
+$breakpoints: (
+  small: 480px,
+  medium: 640px,
+  large: 1024px
+);
+
+// ------------------------------------
+
+@mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
+    @if $fs-breakpoint == null {
+      @include make-font-size($fs-font-size);
+      // font-size: $fs-font-size;
+    } @else {
+      // If $fs-font-size is a key that exists in
+      // $fs-breakpoints, use the value
+      @if map-has-key($fs-breakpoints, $fs-breakpoint) {
+        $fs-breakpoint: map-get($fs-breakpoints, $fs-breakpoint);
+      }
+      // Apply whatever was obtained
+      @media screen and (min-width: $fs-breakpoint) {
+        @include make-font-size($fs-font-size);
+        // font-size: $fs-font-size;
+      }
+    }
+  }
+}
+
+// Utility for mixin font-size
+@mixin make-font-size($fs-font-size) {
+  // If $fs-font-size is a list, include
+  // both font-size and line-height
+  @if type-of($fs-font-size) == 'list' {
+    font-size: nth($fs-font-size, 1);
+    @if (length($fs-font-size) > 1) {
+      line-height: nth($fs-font-size, 2);
+    }
+  } @else {
+    font-size: $fs-font-size;
+  }
+}
+
+// ---------------------------------------------
+// IMPLEMENTATION
+
+a,
+p,
+ul,
+ol {
+  @include font-size($p-font-sizes);
+  font-family: Fira Sans, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  @include font-size($h1-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+h2 {
+  @include font-size($h2-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  @include font-size($h3-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+h4 {
+  @include font-size($h4-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h5 {
+  @include font-size($h5-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h6 {
+  @include font-size($h6-font-sizes);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

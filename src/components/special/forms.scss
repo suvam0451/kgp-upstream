@@ -1,0 +1,139 @@
+.form-label {
+  color: #777777;
+  font-weight: normal;
+  -webkit-transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+  font-size: 70%;
+}
+.form-label small {
+  font-weight: normal;
+  color: #c4c4c4;
+}
+
+.form-inputBar {
+  position: relative;
+  display: block;
+  border-bottom: 1px solid #ccc;
+}
+.form-inputBar::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  z-index: 2;
+  width: 0;
+  height: 2px;
+  background: #fe7c08;
+  -webkit-transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+$info: #288ad6;
+$success: #16c98d;
+
+// SUCCESS cues for form elements
+.has-success {
+  color: $success;
+}
+.form-controlGroup.has-success .form-inputBar {
+  border-color: $success;
+}
+.form-controlGroup.has-success .form-message {
+  display: block;
+  color: $success;
+}
+
+// textarea
+.form-input {
+  display: block;
+  width: 100%;
+  vertical-align: baseline;
+
+  &:focus {
+    outline: 0;
+    outline: thin dotted \9;
+  }
+}
+.form-input[type='image'],
+.form-input[type='checkbox'],
+.form-input[type='radio'],
+.form-input[type='range'] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  line-height: normal;
+  cursor: pointer;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+.form-input[type='image'] {
+  border: 0;
+}
+.form-input[type='file'] {
+  width: auto;
+  height: 28px;
+  padding: initial;
+  line-height: initial;
+  border: initial;
+  background-color: initial;
+}
+.form-input[type='hidden'] {
+  display: none;
+}
+.form-input[type='password'] {
+  font-family: sans-serif;
+}
+.form-input[type='range'] {
+  width: 100%;
+}
+.form-input > .radio:first-child,
+.form-input > .checkbox:first-child {
+  padding-top: 5px;
+}
+.form-input[disabled],
+.form-input[readonly] {
+  cursor: not-allowed;
+}
+.form-input--textarea {
+  height: auto;
+  min-height: 5em;
+  resize: vertical;
+}
+.form-input--textarea--uneditable {
+  width: auto;
+  height: auto;
+}
+
+// file input
+.form-input-file {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  vertical-align: middle;
+  line-height: 1em;
+}
+.form-input-file:focus {
+  outline: none;
+}
+
+// INFO cues for form elements
+.has-info {
+  color: $info;
+}
+.form-controlGroup.has-info .form-inputBar {
+  border-color: $info;
+}
+.form-controlGroup.has-info .form-message {
+  display: block;
+  color: $info;
+}
+
+.form-controlGroup .form-message {
+  display: none;
+}

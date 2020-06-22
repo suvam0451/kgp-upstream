@@ -1,0 +1,129 @@
+/**
+ * Tables
+ * =================================
+ * - Associated Table Variables
+ * - Default table Styles
+ * – Table modifiers:
+ *   - .table--striped
+ * – .responsiveTable
+ */
+/**
+ * Define associated Table variables
+ */
+/**
+ * Customizes the `.table` component with basic values, each used across all table variations.
+ */
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 28px;
+  border-spacing: 0;
+  border: 2px solid #ccc;
+  background-color: #f1f1f1;
+  table-layout: fixed;
+}
+table th,
+table td {
+  padding: 8px;
+  line-height: 28px;
+  vertical-align: top;
+  border: 1px solid #ccc;
+}
+table th:first-child,
+table td:first-child {
+  border-left: 0;
+}
+table th:last-child,
+table td:last-child {
+  border-right: 0;
+}
+table > thead th,
+table > thead td {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ccc;
+}
+table > tfoot td {
+  border-top: 2px solid #ccc;
+  border-bottom: 0;
+}
+table > thead:first-child > tr:first-child > th,
+table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+table tr:hover td,
+table tr:hover th {
+  background-color: inherit;
+}
+table > tbody + tbody {
+  border-top: 2px solid #ccc;
+}
+table table,
+table .table {
+  background-color: #f1f1f1;
+}
+
+th {
+  text-align: left;
+}
+
+/**
+   * Zebra-striping
+   * Default zebra-stripe styles (alternating gray and transparent backgrounds)
+   */
+.table--striped tbody :nth-child(odd) th,
+.table--striped tbody :nth-child(odd) td {
+  background-color: #f9f9f9 !important;
+}
+
+/**
+ * Responsive tables
+ * Wrap your tables in `.responsiveTable` and we'll make them mobile friendly by enabling horizontal scrolling. Only applies <768px. Everything above that will display normally.
+ *
+ * If you need more responsive tables, consider Tablesaw by the Filament Group:
+ * https://github.com/filamentgroup/tablesaw
+ */
+@media (max-width: 749px) {
+  .responsiveTable {
+    width: 100%;
+    margin-bottom: 21px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ccc;
+    -webkit-overflow-scrolling: touch;
+  }
+  .responsiveTable > table {
+    margin-bottom: 0;
+    border: 0;
+  }
+  .responsiveTable > table > thead th,
+  .responsiveTable > table > thead td,
+  .responsiveTable > table > tbody th,
+  .responsiveTable > table > tbody td,
+  .responsiveTable > table > tfoot th,
+  .responsiveTable > table > tfoot td {
+    white-space: nowrap;
+  }
+  .responsiveTable > table > thead th:first-child,
+  .responsiveTable > table > thead td:first-child,
+  .responsiveTable > table > tbody th:first-child,
+  .responsiveTable > table > tbody td:first-child,
+  .responsiveTable > table > tfoot th:first-child,
+  .responsiveTable > table > tfoot td:first-child {
+    border-left: 0;
+  }
+  .responsiveTable > table > thead th:last-child,
+  .responsiveTable > table > thead td:last-child,
+  .responsiveTable > table > tbody th:last-child,
+  .responsiveTable > table > tbody td:last-child,
+  .responsiveTable > table > tfoot th:last-child,
+  .responsiveTable > table > tfoot td:last-child {
+    border-right: 0;
+  }
+  .responsiveTable > table > tbody > th,
+  .responsiveTable > table > tbody > td,
+  .responsiveTable > table > tfoot tr:last-child > th,
+  .responsiveTable > table > tfoot tr:last-child > td {
+    border-bottom: 0;
+  }
+}
