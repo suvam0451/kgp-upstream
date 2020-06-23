@@ -1,3 +1,6 @@
+/** Contains sidebar components. */
+
+// import "../components/special/sidebar.css"
 .sidebar {
   height: 100%;
   position: fixed;
@@ -7,6 +10,28 @@
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
+  @apply shadow-lg;
+  padding-right: 1rem;
+  max-width: 400px;
+}
+
+.sidebar_footer {
+  position: absolute;
+  bottom: 32px;
+  color: #818181;
+  padding-left: 0.5em;
+  width: 100%;
+  & > p {
+    line-height: 0.5em;
+    font-size: medium;
+    font-weight: 100;
+    text-align: center;
+    align-content: center;
+  }
+}
+
+.sidebar :first-child {
+  margin-top: 120px;
 }
 
 .sidebar a {
@@ -15,6 +40,7 @@
   font-size: 21px;
   color: #818181;
   display: block;
+  line-height: 1em;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -24,9 +50,11 @@
 
 /* On smaller screens, where height is less than 450px, 
 *   change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 640px) {
   .sidebar {
     padding-top: 15px;
+    display: none;
+    width: 0px;
   }
   .sidebar a {
     font-size: 18px;

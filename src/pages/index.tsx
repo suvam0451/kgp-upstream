@@ -66,18 +66,25 @@ function IndexPage() {
       <div className="rootcontainer">
         <Helmet></Helmet>
         <NavBar></NavBar>
-        {/* <div className="sidebar">
-      <Link to="/">Older I get</Link>
-    </div> */}
+        <div className="sidebar">
+          <Link to="/publications">Published papers</Link>
+          <Link to="/">Second Link</Link>
+          <Link to="/">Journal publications</Link>
+          <Link to="/">Older I get</Link>
+          <div className="sidebar_footer">
+            <p>In association with</p>
+            <p>Dept. of Civl Engineering</p>
+            <p>IIT Kharagpur</p>
+          </div>
+        </div>
         <Page>
           <Container>
             {/* All the children are flexboxed */}
             <div className="page_mainlayout">
               {/* floating Sidebar div (Hidden in mobile) */}
               <div></div>
-              <div>
+              <div className="page_centralcontent">
                 <h1>Introduction page</h1>
-
                 <p>
                   This means that, right now anyone with access to this page can add/remove videos. Of course, we won't need that in
                   aproduction site. This is just to demonstrate that videos can be dynamically added via youtube/facebook API... or someone
@@ -102,8 +109,10 @@ function IndexPage() {
                 </p>
                 {/* Database query section */}
                 <form>
-                  <input onChange={requestLinks} />
-                  <button>Submit</button>
+                  <div className="form_single_textbox">
+                    <input placeholder="type something here to fetch the card list..." onChange={requestLinks} />
+                    <button>Submit</button>
+                  </div>
                 </form>
                 <>{myLinkArray}</>
                 <h3>Adding links</h3>
@@ -118,7 +127,7 @@ function IndexPage() {
                 <div className="form-controlGroup">
                   <textarea className="form-input form-input--textarea" id="description" name="name" required></textarea>
                   <label className="form-label">Description</label>
-                  <i className="form-inputBar"></i>
+                  <input className="form-inputBar" id="randomentry" placeholder="type something here..."></input>
                 </div>
                 <p>
                   On that note, this would be an offline functionality. Websites usually have a admin backdoor access. But our website is

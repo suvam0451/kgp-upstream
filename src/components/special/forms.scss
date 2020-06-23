@@ -134,6 +134,36 @@ $success: #16c98d;
   color: $info;
 }
 
-.form-controlGroup .form-message {
-  display: none;
+// .form-controlGroup .form-message {
+//   display: none;
+// }
+
+.form-controlGroup {
+  background-color: blue($color: #000000);
+}
+
+// Has a single textbox and submit button
+.form_single_textbox {
+  display: flexbox;
+  max-width: 720px;
+
+  // & input {
+  //   background-color: blue($color: #000000);
+  //   width: 20px;
+  // }
+
+  // & button {
+  //   background-color: blue($color: #000000);
+  //   max-width: 64px;
+  // }
+}
+
+.form_single_textbox input {
+  background-color: blue($color: #000000);
+  width: 20px;
+}
+
+.form_single_textbox button {
+  background-color: blue($color: #000000);
+  max-width: 64px;
 }

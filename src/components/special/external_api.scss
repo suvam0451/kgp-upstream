@@ -13,18 +13,18 @@
 
 .page_mainlayout {
   display: flex;
-  max-width: 500px;
+  //   max-width: 500px;
 }
 
 // floating left sidebar area
 .page_mainlayout :first-child {
-  width: 234px;
-  flex: 0 0 240px; // No grow, No shrink, fixed size(start at)
+  width: 220px;
+  flex: 0 0 220px; // No grow, No shrink, fixed size(start at)
 }
 
 // Main text area
 .page_mainlayout :nth-child(2) {
-  flex: 0 1 auto; // Shrink as needed
+  flex: 0 0 auto; // Shrink as needed
 }
 
 // Right sidebar area
@@ -33,10 +33,55 @@
   flex: 0 0 300px; // No grow, No shrink, fixed size(start at)
 }
 
-.page_textarea {
+// 1080px - 1920px
+@media screen and (min-width: 1080px) {
+  // Main text area
+  .page_mainlayout :nth-child(2) {
+    flex: 0 0 auto; // Shrink as needed
+    max-width: 1080px;
+  }
 }
 
-.page_siebararea {
+// 540px - 1080px
+@media screen and (min-width: 640px) and (max-width: 1080px) {
+  // Main text area
+  .page_mainlayout :nth-child(2) {
+    flex: 0 1 auto; // Shrink as needed
+    width: 720px;
+    max-width: 1024px;
+    display: block;
+    flex: 1;
+  }
+
+  // Remove right sidebar on "tablet"
+  .page_mainlayout :last-child {
+    width: 0px;
+    flex: 0 0 0px; // No grow, No shrink, fixed size(start at)
+    display: none;
+  }
+}
+
+// 0px - 540px
+@media screen and (max-width: 640px) {
+  // Main text area
+  .page_mainlayout :nth-child(2) {
+    flex: 0 1 auto; // Shrink as needed
+    width: 100%;
+    max-width: 540px;
+    display: block;
+    flex: 1;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .page_mainlayout :first-child {
+    display: none;
+    width: 0px;
+    margin: 0px;
+  }
+}
+
+.page_sidebararea {
   width: 600px;
   height: max-content;
 }
@@ -46,5 +91,6 @@
 }
 
 .rootcontainer {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1600px;
 }
