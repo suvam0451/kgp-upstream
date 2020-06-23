@@ -1,0 +1,50 @@
+// import "../components/special/external_api.scss"
+
+.researchgate_embed {
+  height: 800px;
+  width: 300px;
+}
+
+.researchgate_embed_container {
+  height: 800px;
+  width: 300px;
+  width: min-content;
+}
+
+.page_mainlayout {
+  display: flex;
+  max-width: 500px;
+}
+
+// floating left sidebar area
+.page_mainlayout :first-child {
+  width: 234px;
+  flex: 0 0 240px; // No grow, No shrink, fixed size(start at)
+}
+
+// Main text area
+.page_mainlayout :nth-child(2) {
+  flex: 0 1 auto; // Shrink as needed
+}
+
+// Right sidebar area
+.page_mainlayout :last-child {
+  width: 300px;
+  flex: 0 0 300px; // No grow, No shrink, fixed size(start at)
+}
+
+.page_textarea {
+}
+
+.page_siebararea {
+  width: 600px;
+  height: max-content;
+}
+
+.page_rightsidebar {
+  width: 600px;
+}
+
+.rootcontainer {
+  max-width: 1200px;
+}
