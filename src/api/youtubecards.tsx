@@ -8,12 +8,7 @@ interface YoutubeEmbedData {
 export interface YoutubeCardResult {
   ref: any
   ts: number
-  data: {
-    desc?: string
-    id: string
-    link: string
-    tags: string
-  }[]
+  data: string[]
 }
 
 // interface ResponseType {

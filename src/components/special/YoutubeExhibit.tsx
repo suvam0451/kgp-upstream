@@ -25,10 +25,10 @@ const YoutubeCarousal = styled.div`
   border-bottom: 5px solid red;
 `
 
-function YoutubeExhibit(data: YoutubeProps, ref: any) {
+function YoutubeExhibit(data: YoutubeProps) {
   // Sections
   const [, forceUpdate] = useState(null) // view README.md
-  const [carousalSection, setCarousalSection] = useState()
+  const [carousalSection, setCarousalSection] = useState(<></>)
   // const inputEle = useRef(null)
 
   const settings = {
@@ -73,10 +73,10 @@ function YoutubeExhibit(data: YoutubeProps, ref: any) {
   }
 
   // componentDidMount / componentDidUpdate
-  // useEffect(() => {
-  //   forceUpdate(null) // Have to use for TS for some reason
-  //   generateCarousal() // Generate the carousal section
-  // }, [])
+  useEffect(() => {
+    forceUpdate(null) // Have to use for TS for some reason
+    generateCarousal() // Generate the carousal section
+  }, [])
 
   // FIXME: This does not work
   // Parent to child linking functions
@@ -107,8 +107,15 @@ function YoutubeExhibit(data: YoutubeProps, ref: any) {
   /** Generate the youtube carousal cards */
   function generateCarousal() {
     const retval: any = [] // Returned React component
+    setCarousalSection(
+      <>
+        <p>'API request complete...'</p>
+      </>
+    )
 
-    console.log(data.cardlinks)
+    console.log('src is: ', data.src)
+    console.log('links are: ', ...data.cardlinks)
+
     data.cardlinks.forEach(link => {
       retval.push(
         <div className="ytcard">
@@ -131,9 +138,9 @@ function YoutubeExhibit(data: YoutubeProps, ref: any) {
       <YoutubeCarousal className="include-media-test">
         <Slider {...settings}>
           {carousalSection}
-          <div className="ytcard">
+          {/* <div className="ytcard">
             <iframe width="420" height="315" src={data.src} allow="autoplay,encrypted-media" allowFullScreen></iframe>
-          </div>
+          </div> */}
         </Slider>
       </YoutubeCarousal>
     </>

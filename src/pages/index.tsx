@@ -19,7 +19,7 @@ import '../components/special/fonts.scss'
 function IndexPage() {
   // STATE
   const [myLinkArray, setMyLinkArray] = useState(<></>)
-  const [cardLinks, setCardLinks] = useState(['okay', 'k'])
+  const [cardLinks, setCardLinks] = useState(['fdkU6MgrUV4', 'RIZdjT1472Y'])
   // const inputEle = useRef(null)
   // const carousalRef = useRef()
 
@@ -29,7 +29,7 @@ function IndexPage() {
     let name = e.currentTarget.name // if named, else empty string
     setMyLinkArray(
       <>
-        <p>'loading...'</p>
+        <p>'Loading data...'</p>
       </>
     ) // Loading screen
 
@@ -49,8 +49,9 @@ function IndexPage() {
           // loop out the inks
           let cardlinks: string[] = []
           res.data.forEach(linkobject => {
-            cardlinks = cardlinks.concat(linkobject.link)
+            cardlinks = cardlinks.concat([linkobject])
           })
+
           retval.push(
             <YoutubeExhibit src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" cardlinks={cardlinks} />
           )
@@ -97,7 +98,6 @@ function IndexPage() {
             <button>Submit</button>
           </form>
           <>{myLinkArray}</>
-          <YoutubeExhibit src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" cardlinks={cardLinks} />
           <h3>Adding links</h3>
           <p>
             For now try adding a few more links to the database. Here are some links for example (straight up youtube links won't work. The
