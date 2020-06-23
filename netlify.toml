@@ -1,4 +1,4 @@
 [build]
     functions = "lambda"
-    Command = "gatsby build"
+    Command = "yarn tsc ./functions-ts/ytcard-read.ts --outDir ./functions && yarn netlify-lambda build functions && gatsby build"
     publish = "public"
