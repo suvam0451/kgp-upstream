@@ -1,6 +1,17 @@
 // omport
+@charset 'UTF-8';
 
-@charset "UTF-8";
+$break-min: 0px;
+$break-small: 1000px;
+$break-large: 2000px;
+
+// Width breakpoints
+$width_phone: 480px;
+$width_phone2: 768px;
+$width_phone3: 992px;
+$width_tablet: 1024px; // Minimum desktop width used worldwide
+$width_tablet2: 1200px;
+$width_desktop: 1920px;
 
 $screen_breakpoints: (
   'phone': 320px,
@@ -61,24 +72,21 @@ $tile-bg: #c6538e;
 }
 
 .ytcard {
-  @apply mx-48;
+  // @apply mx-48;
   @apply my-8;
   @apply text-center;
+  width: 100%;
 }
-
-$break-min: 0px;
-$break-small: 1000px;
-$break-large: 2000px;
 
 .include-media-test {
   @media screen and (min-width: $break-min) {
-    width: 500px;
+    width: auto;
     float: none;
   }
 
   @media screen and (min-width: $break-small) {
-    width: 800px;
-    float: right;
+    width: auto;
+    float: none;
   }
 
   //   @include media('<=phone') {

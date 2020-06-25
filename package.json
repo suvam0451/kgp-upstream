@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.28.2",
+    "@blueprintjs/icons": "^3.18.1",
+    "@blueprintjs/select": "^3.13.3",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
     "@types/react-slick": "^0.23.4",

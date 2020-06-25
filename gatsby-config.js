@@ -53,10 +53,10 @@ module.exports = {
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
-              classPrefix: 'language-',
+              classPrefix: 'language-js', // check other default languages
               inlineCodeMarker: null,
               showLineNumbers: true,
-              noInlineHighlight: false,
+              noInlineHighlight: false, // `code` objects
               aliases: {},
               prompt: {
                 user: 'root',

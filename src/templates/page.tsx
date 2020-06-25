@@ -1,33 +1,38 @@
-import * as React from 'react'
-import { Link } from 'gatsby'
-import { graphql } from 'gatsby'
-import { Helmet } from 'react-helmet'
-import NavBar from '../components/NavBar'
-import Page from '../components/Page'
+import * as React from 'react';
+import { Link } from 'gatsby';
+import { graphql } from 'gatsby';
+import { Helmet } from 'react-helmet';
+import NavBar from '../components/NavBar';
+import Page from '../components/Page';
 
-import '../components/sections/markdown-post.scss'
-import Container from '../components/Container'
+import '../components/sections/markdown-post.scss';
+import Container from '../components/Container';
+
+// CSS
+import '../styles/gatsby-custom.scss';
+import { Footer } from '../components/decorators';
+import { SidebarTypeC } from "../components/SidebarComponent";
 
 interface PageTemplateProps {
   data: {
     site: {
       siteMetadata: {
-        title: string
-        description: string
+        title: string;
+        description: string;
         author: {
-          name: string
-          url: string
-        }
-      }
-    }
+          name: string;
+          url: string;
+        };
+      };
+    };
     markdownRemark: {
-      html: string
-      excerpt: string
+      html: string;
+      excerpt: string;
       frontmatter: {
-        title: string
-      }
-    }
-  }
+        title: string;
+      };
+    };
+  };
 }
 
 const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
@@ -35,23 +40,13 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
     <div className="rootcontainer">
       <Helmet></Helmet>
       <NavBar></NavBar>
-      <div className="sidebar">
-        <Link to="/publications">Published papers</Link>
-        <Link to="/">Second Link</Link>
-        <Link to="/">Journal publications</Link>
-        <Link to="/">Older I get</Link>
-        <div className="sidebar_footer">
-          <p>In association with</p>
-          <p>Dept. of Civl Engineering</p>
-          <p>IIT Kharagpur</p>
-        </div>
-      </div>
+      <SidebarTypeC></SidebarTypeC>
       <Page>
         <Container>
           {/* All the children are flexboxed */}
           <div className="page_mainlayout">
             {/* floating Sidebar div (Hidden in mobile) */}
-            <div></div>
+            <div />
             <div>
               <h1>{data.markdownRemark.frontmatter.title}</h1>
               {/* eslint-disable-next-line react/no-danger */}
@@ -67,11 +62,12 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
           </div>
         </Container>
       </Page>
+      <Footer />
     </div>
   </>
-)
+);
 
-export default PageTemplate
+export default PageTemplate;
 
 export const query = graphql`
   query PageTemplateQuery($slug: String!) {
@@ -93,4 +89,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

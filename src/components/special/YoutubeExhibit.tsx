@@ -113,9 +113,6 @@ function YoutubeExhibit(data: YoutubeProps) {
       </>
     )
 
-    console.log('src is: ', data.src)
-    console.log('links are: ', ...data.cardlinks)
-
     data.cardlinks.forEach(link => {
       retval.push(
         <div className="ytcard">

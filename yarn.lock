@@ -1062,6 +1062,15 @@
     classnames "^2.2"
     tslib "~1.10.0"
 
+"@blueprintjs/select@^3.13.3":
+  version "3.13.3"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/select/-/select-3.13.3.tgz#c9ab2a4f4ebfd22019ca27c093bcd955bc54b84f"
+  integrity sha512-glpZB00DO3kv8I5sLNp67nfE+BIYV1QWm2SfEALYZ39ewGDPM0guiUvuZTgF/RCgpNRhKzlNP44Ur7i3VWS8bg==
+  dependencies:
+    "@blueprintjs/core" "^3.28.2"
+    classnames "^2.2"
+    tslib "~1.10.0"
+
 "@bugsnag/browser@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.1.1.tgz#a260d7b4ec11dfb0e056f169d3ff392b81eddaef"

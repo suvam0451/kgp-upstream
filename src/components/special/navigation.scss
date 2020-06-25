@@ -1,0 +1,37 @@
+/** NOTE:  
+
+    justify - performs main axis alignment. (same dir as flex-direction)
+    align   - performs cross-axis alignment (across dir as flex-direction)
+
+    display: flex to a container, the child items all become flex items arranged in a row.
+    They will all stretch to be as tall as the tallest item
+
+    (src: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container)
+*/
+
+// Elements will flex out to left and right
+.nextandback {
+  //   width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: space-between;
+  & :nth-child(1) {
+    // float: left;
+    display: flex;
+    max-width: 160px;
+    justify-content: left;
+    text-align: left;
+  }
+  & :nth-child(2) {
+    justify-content: stretch;
+    margin-left: auto; // will push everything to right
+  }
+  & :nth-child(3) {
+    display: flex;
+    max-width: 160px;
+    justify-content: right;
+    text-align: right;
+  }
+}

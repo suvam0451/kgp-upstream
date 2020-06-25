@@ -19,7 +19,8 @@
       "node_modules": true,
       "public": false,
       "lambda": false,
-      ".cache": true
+      ".cache": true,
+      "yarn-error.log": true
     }
   }
 }
