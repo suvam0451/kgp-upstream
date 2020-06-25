@@ -51,7 +51,7 @@ function NavSection() {
     <ComponentStyle>
       <Navbar>
         <div className="bp3-navbar-group bp3-align-left">
-          <NavbarHeading>Sample</NavbarHeading>
+          <NavbarHeading>Sample Website</NavbarHeading>
           <DesktopNavbarSection>
             <span className="bp3-navbar-divider" />
             <Link to="/publications">

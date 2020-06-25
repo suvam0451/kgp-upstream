@@ -1,0 +1,8 @@
+.container_scroll {
+  scroll-snap-type: y mandatory;
+  //   scroll-snap-type: y proximity;
+}
+
+.child {
+  scroll-snap-align: start;
+}

@@ -6,32 +6,97 @@
   width: 300px;
 }
 
-.researchgate_embed_container {
-  height: 800px;
-  width: 300px;
-  width: min-content;
-}
+// .researchgate_embed_container {
+//   height: 800px;
+//   width: 300px;
+//   width: min-content;
+// }
 
-.page_mainlayout {
+// IMMEDIATE PARENT RULE
+// .x > .y {
+// }
+
+// ANY POSITION PARENT RULE
+// .x .y {
+// }
+
+// DEFAULT LAYOUT OPTIONS
+.container_mainpage {
+  max-width: 720px;
   display: flex;
-  //   max-width: 500px;
 }
 
-// floating left sidebar area
-.page_mainlayout :first-child {
-  width: 220px;
-  flex: 0 0 220px; // No grow, No shrink, fixed size(start at)
+.layout_mainpage {
+  &:nth-child(1) {
+    width: 220px;
+    flex: 0 0 220px; // No grow, No shrink, fixed size(start at)
+  }
+  &:nth-child(2) {
+    margin: auto;
+    flex: 1 0 auto; // No grow, No shrink, fixed size(start at)
+    max-width: 1080px;
+  }
+  &:nth-child(3) {
+    width: 300px;
+    min-height: 600px;
+    flex: 0 0 300px; // No grow, No shrink, fixed size(start at)
+  }
 }
 
-// Main text area
-.page_mainlayout :nth-child(2) {
-  flex: 0 0 auto; // Shrink as needed
+// MOBILE LAYOUT : 0px - 768px
+@media screen and (max-width: 768px) {
+  .container_mainpage {
+    max-width: 720px;
+    display: flex;
+  }
+  .layout_mainpage {
+    &:nth-child(1) {
+      width: 0;
+      margin: 0;
+      display: none;
+    }
+    &:nth-child(2) {
+      flex: 0 1 auto; // Shrink as needed
+      width: 100%;
+      max-width: 540px;
+      display: block;
+      flex: 1;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    &:nth-child(3) {
+      display: none;
+      width: 0px;
+    }
+  }
 }
 
-// Right sidebar area
-.page_mainlayout :nth-child(3) {
-  width: 300px;
-  flex: 0 0 300px; // No grow, No shrink, fixed size(start at)
+// 540px - 1080px
+@media screen and (min-width: 640px) and (max-width: 1080px) {
+  // Main text area
+  .page_mainlayout :nth-child(2) {
+    flex: 0 0 auto; // Shrink as needed
+    // width: 720px;
+    max-width: 1024px;
+    display: block;
+    margin: auto;
+    flex-grow: 1;
+  }
+
+  // Remove right sidebar on "tablet"
+  .page_mainlayout :nth-child(3) {
+    width: 0px;
+    flex: 0 0 0px; // No grow, No shrink, fixed size(start at)
+    display: none;
+  }
+}
+
+// Page footer. Has to change with screen size
+.footer01 {
+  @apply bg-gray-600;
+  @apply px-4;
+  @apply py-2;
+  padding-left: 220px + 20px;
 }
 
 // 1080px - 1920px
@@ -40,6 +105,12 @@
   .page_mainlayout :nth-child(2) {
     flex: 0 0 auto; // Shrink as needed
     max-width: 1080px;
+  }
+
+  // Right sidebar area
+  .page_mainlayout :nth-child(3) {
+    width: 600px;
+    flex: 0 0 600px; // No grow, No shrink, fixed size(start at)
   }
 }
 

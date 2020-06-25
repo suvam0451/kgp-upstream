@@ -17,10 +17,12 @@
       "LICENSE": true,
       ".prettierrc": true,
       "node_modules": true,
-      "public": false,
+      "public": true,
       "lambda": false,
       ".cache": true,
-      "yarn-error.log": true
-    }
+      "yarn-error.log": true,
+      ".vscode": true
+    },
+    "editor.formatOnSave": true
   }
 }
