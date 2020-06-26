@@ -10,28 +10,45 @@
 */
 
 // Elements will flex out to left and right
-.nextandback {
-  //   width: 100%;
-  margin: auto;
+.container_nextandback {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  align-content: space-between;
-  & :nth-child(1) {
+  justify-content: space-between;
+  @apply mt-8;
+  @apply mb-0;
+}
+
+// To disable link underlining
+.navigation a {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  line-height: 1.25;
+  border: 2px solid #c2255c;
+}
+
+.nextandback {
+  &:nth-child(1),
+  &:nth-child(3) {
     // float: left;
     display: flex;
     max-width: 160px;
-    justify-content: left;
+    justify-content: center;
     text-align: left;
+    border: 2px solid #c2255c;
+    @apply px-2;
+    @apply py-3;
+
+    min-width: 180px;
+    align-items: center;
   }
-  & :nth-child(2) {
+  &:nth-child(2) {
     justify-content: stretch;
     margin-left: auto; // will push everything to right
   }
-  & :nth-child(3) {
-    display: flex;
-    max-width: 160px;
-    justify-content: right;
-    text-align: right;
-  }
+  // &:nth-child(3) {
+  //   display: flex;
+  //   max-width: 160px;
+  //   justify-content: right;
+  //   text-align: right;
+  // }
 }

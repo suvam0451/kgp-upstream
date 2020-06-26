@@ -10,7 +10,7 @@ import Container from '../components/Container'
 
 // CSS
 import '../styles/gatsby-custom.scss'
-import { Footer } from '../components/decorators'
+import { Footer } from '../components/Decorators'
 import { SidebarTypeC } from '../components/SidebarComponent'
 
 interface PageTemplateProps {
@@ -37,30 +37,28 @@ interface PageTemplateProps {
 
 const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
   <>
-    <div className="rootcontainer">
+    <div className="container_root">
       <Helmet></Helmet>
       <NavBar></NavBar>
       <SidebarTypeC></SidebarTypeC>
       <Page>
-        <Container>
-          {/* All the children are flexboxed */}
-          <div className="container_mainpage">
-            {/* floating Sidebar div (Hidden in mobile) */}
-            <div className="layout_mainpage" />
-            <div className="layout_mainpage">
-              <h1>{data.markdownRemark.frontmatter.title}</h1>
-              {/* eslint-disable-next-line react/no-danger */}
-              <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-            </div>
-            {/* Last element (required in sass) */}
-            <div className="layout_mainpage">
-              <iframe
-                className="researchgate_embed"
-                src="https://www.researchgate.net/plugins/department?stats=true&faces=true&publications=true&height=600&width=300&theme=light&type=department&installationId=5ef18e2b12eb0b14a569b35c"
-              />
-            </div>
+        {/* All the children are flexboxed */}
+        <div className="container_mainpage">
+          {/* floating Sidebar div (Hidden in mobile) */}
+          <div className="layout_mainpage" />
+          <div className="layout_mainpage">
+            <h1>{data.markdownRemark.frontmatter.title}</h1>
+            {/* eslint-disable-next-line react/no-danger */}
+            <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
           </div>
-        </Container>
+          {/* Last element (required in sass) */}
+          <div className="layout_mainpage">
+            <iframe
+              className="researchgate_embed"
+              src="https://www.researchgate.net/plugins/department?stats=true&faces=true&publications=true&height=600&width=300&theme=light&type=department&installationId=5ef18e2b12eb0b14a569b35c"
+            />
+          </div>
+        </div>
       </Page>
       <Footer />
     </div>

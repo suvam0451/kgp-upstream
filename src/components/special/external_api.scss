@@ -20,49 +20,66 @@
 // .x .y {
 // }
 
+// HANDLES SCREENWIDTH CHANGES
+.container_root {
+  max-width: 1200px;
+
+  @media screen and (max-width: $width_phone2) {
+    max-width: $width_phone2;
+  }
+  @media screen and (min-width: $width_phone2) and (max-width: $width_tabletend) {
+    max-width: $width_tabletend;
+    min-width: $width_phone2;
+  }
+  @media screen and (min-width: $width_tabletend) {
+    min-width: $width_tabletend;
+    max-width: $width_desktop;
+  }
+}
+
 // DEFAULT LAYOUT OPTIONS
+
 .container_mainpage {
-  max-width: 720px;
+  max-width: 1920px;
   display: flex;
+  margin: auto;
+  width: 100%;
 }
 
 .layout_mainpage {
   &:nth-child(1) {
-    width: 220px;
-    flex: 0 0 220px; // No grow, No shrink, fixed size(start at)
+    width: 200px;
+    @apply flex-none;
   }
   &:nth-child(2) {
-    margin: auto;
-    flex: 1 0 auto; // No grow, No shrink, fixed size(start at)
     max-width: 1080px;
+    flex-grow: 1;
   }
   &:nth-child(3) {
     width: 300px;
     min-height: 600px;
-    flex: 0 0 300px; // No grow, No shrink, fixed size(start at)
+    @apply flex-none;
   }
 }
 
 // MOBILE LAYOUT : 0px - 768px
 @media screen and (max-width: 768px) {
   .container_mainpage {
-    max-width: 720px;
+    max-width: $width_phone2;
     display: flex;
+    margin: auto;
+    width: 100%;
   }
   .layout_mainpage {
     &:nth-child(1) {
       width: 0;
-      margin: 0;
       display: none;
     }
     &:nth-child(2) {
-      flex: 0 1 auto; // Shrink as needed
+      @apply flex-auto;
       width: 100%;
-      max-width: 540px;
-      display: block;
       flex: 1;
-      margin-left: 0px;
-      margin-right: 0px;
+      @apply mx-0;
     }
     &:nth-child(3) {
       display: none;
@@ -71,23 +88,50 @@
   }
 }
 
-// 540px - 1080px
-@media screen and (min-width: 640px) and (max-width: 1080px) {
+// 1080px - 1920px
+@media screen and (min-width: 1280px) {
+  .layout_mainpage {
+    &:nth-child(1) {
+      width: 200px;
+      @apply flex-none;
+    }
+    &:nth-child(2) {
+      @apply flex-auto;
+      @apply mx-2;
+    }
+  }
   // Main text area
   .page_mainlayout :nth-child(2) {
-    flex: 0 0 auto; // Shrink as needed
-    // width: 720px;
-    max-width: 1024px;
-    display: block;
-    margin: auto;
-    flex-grow: 1;
+    // flex: 0 0 auto; // Shrink as needed
+    @apply flex-auto;
+    max-width: 1080px;
   }
 
-  // Remove right sidebar on "tablet"
+  // Right sidebar area
   .page_mainlayout :nth-child(3) {
-    width: 0px;
-    flex: 0 0 0px; // No grow, No shrink, fixed size(start at)
-    display: none;
+    width: 600px;
+    // flex: 0 0 600px; // No grow, No shrink, fixed size(start at)
+    @apply flex-none;
+  }
+}
+
+// 540px - 1080px
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .layout_mainpage {
+    &:nth-child(1) {
+      width: 200px;
+      @apply flex-none;
+    }
+    &:nth-child(2) {
+      @apply flex-auto;
+      @apply ml-2;
+      @apply mr-0;
+    }
+    &:nth-child(3) {
+      width: 0px;
+      @apply flex-none;
+      display: none;
+    }
   }
 }
 
@@ -96,70 +140,5 @@
   @apply bg-gray-600;
   @apply px-4;
   @apply py-2;
-  padding-left: 220px + 20px;
-}
-
-// 1080px - 1920px
-@media screen and (min-width: 1080px) {
-  // Main text area
-  .page_mainlayout :nth-child(2) {
-    flex: 0 0 auto; // Shrink as needed
-    max-width: 1080px;
-  }
-
-  // Right sidebar area
-  .page_mainlayout :nth-child(3) {
-    width: 600px;
-    flex: 0 0 600px; // No grow, No shrink, fixed size(start at)
-  }
-}
-
-// 540px - 1080px
-@media screen and (min-width: 640px) and (max-width: 1080px) {
-  // Main text area
-  .page_mainlayout :nth-child(2) {
-    flex: 0 0 auto; // Shrink as needed
-    // width: 720px;
-    max-width: 1024px;
-    display: block;
-    margin: auto;
-    flex-grow: 1;
-  }
-
-  // Remove right sidebar on "tablet"
-  .page_mainlayout :nth-child(3) {
-    width: 0px;
-    flex: 0 0 0px; // No grow, No shrink, fixed size(start at)
-    display: none;
-  }
-}
-
-// 0px - 540px
-@media screen and (max-width: 640px) {
-  .page_mainlayout :first-child {
-    display: none;
-    width: 0px;
-    margin: 0px;
-  }
-
-  // Main text area
-  .page_mainlayout :nth-child(2) {
-    flex: 0 1 auto; // Shrink as needed
-    width: 100%;
-    max-width: 540px;
-    display: block;
-    flex: 1;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  .page_mainlayout :nth-child(3) {
-    display: none;
-    width: 0px;
-  }
-}
-
-.rootcontainer {
-  width: 100%;
-  max-width: 1600px;
+  display: flex;
 }

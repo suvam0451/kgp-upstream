@@ -92,3 +92,14 @@ Built with [Gatsby](https://www.gatsbyjs.org/) - the blazing-fast static site ge
 ## 💫 Deploy
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/resir014/gatsby-starter-typescript-plus)
+
+### Device breakpoints
+
+The project uses tailwindcss injections as a sytactic sugar for the SASS. So, the following breakpoints are used throughout.
+
+| Name        | Width(Pixels) |     |
+| ----------- | ------------- | --- |
+| Small       | 640px         |     |
+| Medium      | 768px         |     |
+| Large       | 1024px        |     |
+| Extra Large | 1280px        |     |
