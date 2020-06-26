@@ -1,7 +1,7 @@
-import React, { useState, EventHandler, useEffect, useImperativeHandle, useRef } from 'react'
-import styled from '@emotion/styled'
-import Slider from 'react-slick'
-import { screenwidths } from '../../styles/variables'
+import React, { useState, EventHandler, useEffect, useImperativeHandle, useRef } from 'react';
+import styled from '@emotion/styled';
+import Slider from 'react-slick';
+import { screenwidths } from '../../styles/variables';
 // import { getEmSize } from '../styles/mixins'
 
 // const StyledContainer = styled.div`
@@ -11,35 +11,34 @@ import { screenwidths } from '../../styles/variables'
 //   max-width: ${getEmSize(widths.lg)}em;
 // `
 
-import '../../styles/index.sass'
-import './SpecialComponents.scss'
+import '../../styles/index.sass';
+import './SpecialComponents.scss';
 
 interface YoutubeProps {
-  src?: string
-  cardlinks: string[]
+  src?: string;
+  cardlinks: string[];
 }
 
 const YoutubeCarousal = styled.div`
-  max-width: 960px;
   margin-left: 20px;
   border-bottom: 5px solid red;
-`
+`;
 
 function YoutubeExhibit(data: YoutubeProps) {
   // Sections
-  const [, forceUpdate] = useState(null) // view README.md
-  const [carousalSection, setCarousalSection] = useState(<></>)
+  const [, forceUpdate] = useState(null); // view README.md
+  const [carousalSection, setCarousalSection] = useState(<></>);
   // const inputEle = useRef(null)
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: false,
     speed: 1000,
     autoplaySpeed: 3000,
     fadeIn: false,
     autoplay: false,
     pauseOnHover: false,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     // screen breakdowns
     responsive: [
@@ -70,13 +69,13 @@ function YoutubeExhibit(data: YoutubeProps) {
         }
       }
     ]
-  }
+  };
 
   // componentDidMount / componentDidUpdate
   useEffect(() => {
-    forceUpdate(null) // Have to use for TS for some reason
-    generateCarousal() // Generate the carousal section
-  }, [])
+    forceUpdate(null); // Have to use for TS for some reason
+    generateCarousal(); // Generate the carousal section
+  }, []);
 
   // FIXME: This does not work
   // Parent to child linking functions
@@ -106,16 +105,16 @@ function YoutubeExhibit(data: YoutubeProps) {
 
   /** Generate the youtube carousal cards */
   function generateCarousal() {
-    const retval: any = [] // Returned React component
+    const retval: any = []; // Returned React component
     setCarousalSection(
       <>
         <p>'API request complete...'</p>
       </>
-    )
+    );
 
     data.cardlinks.forEach(link => {
       retval.push(
-        <div className="ytcard">
+        <div className="component_youtube_carousal">
           <iframe
             width="420"
             height="315"
@@ -124,15 +123,15 @@ function YoutubeExhibit(data: YoutubeProps) {
             allowFullScreen
           ></iframe>
         </div>
-      )
-    })
+      );
+    });
 
-    setCarousalSection(retval)
+    setCarousalSection(retval);
   }
 
   return (
     <>
-      <YoutubeCarousal className="include-media-test">
+      <YoutubeCarousal className="section_youtube_carousal">
         <Slider {...settings}>
           {carousalSection}
           {/* <div className="ytcard">
@@ -141,7 +140,7 @@ function YoutubeExhibit(data: YoutubeProps) {
         </Slider>
       </YoutubeCarousal>
     </>
-  )
+  );
 }
 
 // class Yuri extends React.Component {
@@ -217,7 +216,7 @@ function YoutubeExhibit(data: YoutubeProps) {
 //   )
 // }
 
-export { YoutubeExhibit }
+export { YoutubeExhibit };;
 
 // export default React.forwardRef((props, ref) => {
 //   const menuRef = useRef<any>(null)

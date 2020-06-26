@@ -30,6 +30,7 @@
 // center along x. Provide fixed width if needed
 @mixin centerx($maxwidth: null) {
   @if not $maxwidth {
+    height: auto;
   } @else {
     height: auto;
     transform: translateX(25%);

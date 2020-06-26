@@ -1,26 +1,26 @@
-import React, { useState, EventHandler, useRef, useReducer, ReducerAction } from 'react'
-import { Link } from 'gatsby'
+import React, { useState, EventHandler, useRef, useReducer, ReducerAction } from 'react';
+import { Link } from 'gatsby';
 
-import Page from '../components/Page'
-import Container from '../components/Container'
-import { Helmet } from 'react-helmet'
-import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
-import { Footer, ForwardBackNavSection } from '../components/Decorators'
-import { Switch, Icon, Intent } from '@blueprintjs/core'
+import Page from '../components/Page';
+import Container from '../components/Container';
+import { Helmet } from 'react-helmet';
+import { YoutubeExhibit } from '../components/special/YoutubeExhibit';
+import { Footer, ForwardBackNavSection } from '../components/Decorators';
+import { Switch, Icon, Intent } from '@blueprintjs/core';
 
-import YTAPI, { YoutubeCardResult } from '../api/youtubecards'
+import YTAPI, { YoutubeCardResult } from '../api/youtubecards';
 
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar';
 // import IndexLayout from '../layouts'
-import '../components/special/forms.scss'
-import '../components/special/links.scss'
-import '../components/special/sidebar.scss'
-import '../components/special/fonts.scss'
-import '../components/special/external_api.scss'
-import '../components/special/navigation.scss'
+import '../components/special/forms.scss';
+import '../components/special/links.scss';
+import '../components/special/sidebar.scss';
+import '../components/special/fonts.scss';
+import '../components/special/external_api.scss';
+import '../components/special/navigation.scss';
 
 // Popover and menus
-import { PopoverX } from '../components/MenuSection'
+import { PopoverX } from '../components/MenuSection';
 
 function IndexPage() {
   // STATE
@@ -29,7 +29,7 @@ function IndexPage() {
     { name: 'Kailee', alive: false },
     { name: 'John', alive: false },
     { name: 'Mia', alive: false }
-  ]
+  ];
 
   // const reducer = (people: string[], action: ReducerAction) => {
   //   if (action.type == "add") {
@@ -41,51 +41,49 @@ function IndexPage() {
   // const [state, dispatch] = React.useReducer(reducer, initialState);
 
   // STATE management
-  const [myLinkArray, setMyLinkArray] = useState(<></>)
-  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y'])
-  const [carousalHidden, setCarousalHidden] = useState(true)
-  // const inputEle = useRef(null)
-  // const carousalRef = useRef()
+  const [myLinkArray, setMyLinkArray] = useState(<></>);
+  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y']);
+  const [carousalHidden, setCarousalHidden] = useState(true);
 
   function requestLinks(e: React.FormEvent<HTMLInputElement>) {
-    let target = e.target // element data
-    let value = e.currentTarget.value // gets text
-    let name = e.currentTarget.name // if named, else empty string
+    let target = e.target; // element data
+    let value = e.currentTarget.value; // gets text
+    let name = e.currentTarget.name; // if named, else empty string
     setMyLinkArray(
       <>
         <p>'Loading data...'</p>
       </>
-    ) // Loading screen
+    ); // Loading screen
 
-    let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/
+    let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/;
     if (carousalHidden == true) {
       if (ex.test(value)) {
         YTAPI.read().then(res => {
-          console.log('There it is. Sample obtained after success...', res)
-          setMyLinkArray(res)
-        })
+          console.log('There it is. Sample obtained after success...', res);
+          setMyLinkArray(res);
+        });
       } else {
         YTAPI.read().then((res: YoutubeCardResult) => {
-          const retval: any = [] // Returned React component
+          const retval: any = []; // Returned React component
           if (typeof res == 'undefined') {
-            console.log('Failed to obtain API data')
+            console.log('Failed to obtain API data');
           } else {
-            console.log('Sample obtained after failure...', res)
+            console.log('Sample obtained after failure...', res);
             // loop out the inks
-            let cardlinks: string[] = []
+            let cardlinks: string[] = [];
             res.data.forEach(linkobject => {
-              cardlinks = cardlinks.concat([linkobject])
-            })
+              cardlinks = cardlinks.concat([linkobject]);
+            });
 
-            retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
-            setMyLinkArray(retval)
+            retval.push(<YoutubeExhibit cardlinks={cardlinks} />);
+            setMyLinkArray(retval);
           }
-        })
+        });
       }
-      setCarousalHidden(false)
+      setCarousalHidden(false);
     } else {
       // hide carousal element if already visible
-      setCarousalHidden(true)
+      setCarousalHidden(true);
     }
   }
   return (
@@ -186,7 +184,7 @@ function IndexPage() {
         <Footer />
       </div>
     </>
-  )
+  );
 }
 
-export default IndexPage
+export default IndexPage;

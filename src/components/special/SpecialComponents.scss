@@ -1,6 +1,9 @@
 // omport
 @charset 'UTF-8';
 
+
+@import "../../mixins/center.scss";
+
 $break-min: 0px;
 $break-small: 1000px;
 $break-large: 2000px;
@@ -72,13 +75,13 @@ $tile-bg: #c6538e;
 }
 
 .ytcard {
-  // @apply mx-48;
   @apply my-8;
   @apply text-center;
-  width: 100%;
 }
 
-.include-media-test {
+.section_youtube_carousal {
+  @apply mx-8;
+  margin: auto;
   @media screen and (min-width: $break-min) {
     width: auto;
     float: none;
@@ -88,42 +91,10 @@ $tile-bg: #c6538e;
     width: auto;
     float: none;
   }
+}
 
-  //   @include media('<=phone') {
-  //     background-color: #def;
-
-  //     &::before {
-  //       content: '<=phone';
-  //     }
-  //   }
-
-  //   @include media('>phone') {
-  //     background-color: #abc;
-
-  //     &:before {
-  //       content: '>phone';
-  //     }
-  //   }
-
-  //   @include media('>=815px', '<desktop') {
-  //     background-color: #fed;
-
-  //     &:before {
-  //       content: '>=815px, <desktop';
-  //     }
-  //   }
-
-  //   @include media('>=desktop') {
-  //     background-color: #fab;
-
-  //     &:before {
-  //       content: '>=desktop';
-  //     }
-  //   }
-
-  //   @include media('retina2x') {
-  //     &:after {
-  //       content: 'Retina' !important;
-  //     }
-  //   }
+.component_youtube_carousal {
+  margin: auto;
+  align-items: center;
+  @include centerx(1080px);
 }
