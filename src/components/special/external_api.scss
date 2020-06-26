@@ -96,22 +96,14 @@
       @apply flex-none;
     }
     &:nth-child(2) {
+      margin: auto;
       @apply flex-auto;
       @apply mx-2;
     }
-  }
-  // Main text area
-  .page_mainlayout :nth-child(2) {
-    // flex: 0 0 auto; // Shrink as needed
-    @apply flex-auto;
-    max-width: 1080px;
-  }
-
-  // Right sidebar area
-  .page_mainlayout :nth-child(3) {
-    width: 600px;
-    // flex: 0 0 600px; // No grow, No shrink, fixed size(start at)
-    @apply flex-none;
+    &:nth-child(3) {
+      display: block;
+      width: 300px;
+    }
   }
 }
 
