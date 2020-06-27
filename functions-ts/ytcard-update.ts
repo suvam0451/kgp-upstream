@@ -18,7 +18,7 @@ exports.handler = (event: any, context: any, callback: Function) => {
   })
 
   let data: string = JSON.parse(event.body)
-  let ex: RegExp = /www.youtube.com\/watch\?v=([_-a-zA-Z0-9]+)/
+  let ex: RegExp = /www.youtube.com\/watch\?v=([_-=a-zA-Z0-9]+)/
 
   if (ex.test(data)) {
     // Prepare the export data
