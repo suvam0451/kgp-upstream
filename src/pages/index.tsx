@@ -75,6 +75,9 @@ function IndexPage() {
                 aproduction site. This is just to demonstrate that videos can be dynamically added via youtube/facebook API... or someone
                 can add the links offline and they will be available here...
               </p>
+              <blockquote>
+                I think the researchgate embed service is not active 24*7. The right section may appear empty, at times.
+              </blockquote>
               <h3>Database provider</h3>
               <p>
                 We are using faunadb as our database provider. The free tier has a read operation limit of <b>100K requests/day</b>. It is
@@ -101,7 +104,7 @@ function IndexPage() {
               />
               {/* CArousal section */}
               {carousalHidden ? null : <div>{myLinkArray}</div>}
-
+              <blockquote>After adding more links from the section below, try flipping the switch off and on again.</blockquote>
               <h3>Adding links</h3>
               <p>
                 We can add to the database from anywhere. Try one of these links. Paste them into the input section and press the lock icon.

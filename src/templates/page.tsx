@@ -7,6 +7,8 @@ import Page from '../components/Page'
 
 import '../components/sections/markdown-post.scss'
 import '../components/special/blockquote.scss'
+import '../components/special/tables.scss'
+
 import Container from '../components/Container'
 
 // CSS
