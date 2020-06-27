@@ -1,0 +1,16 @@
+blockquote {
+  background-color: rgba(255, 229, 100, 0.3);
+  border-left: 8px solid #ffe564;
+  padding: 15px 30px 15px 15px;
+  // color: #6a737d;
+  color: #1a1a1a;
+  font-size: 16px;
+  margin: 0 0 16px;
+  // No space for first/last paragraphs
+  & > :first-child {
+    @apply mt-0;
+  }
+  & > :last-child {
+    @apply mb-0;
+  }
+}

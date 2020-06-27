@@ -28,7 +28,8 @@ async function _read() {
 }
 
 const _update = (data: string) => {
-  return fetch('/.netlify/functions/youtube-cards-update', {
+  return fetch('/.netlify/functions/ytcard-update', {
+    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
     body: JSON.stringify(data)
   }).then(res => {
     return res.json();

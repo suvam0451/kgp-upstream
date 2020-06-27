@@ -1,26 +1,26 @@
-import React, { useState, EventHandler, useRef, useReducer, ReducerAction } from 'react';
-import { Link } from 'gatsby';
+import React, { useState, EventHandler, useRef, useReducer, ReducerAction } from 'react'
+import { Link } from 'gatsby'
 
-import Page from '../components/Page';
-import Container from '../components/Container';
-import { Helmet } from 'react-helmet';
-import { YoutubeExhibit } from '../components/special/YoutubeExhibit';
-import { Footer, ForwardBackNavSection } from '../components/Decorators';
-import { Switch, Icon, Intent } from '@blueprintjs/core';
+import Page from '../components/Page'
+import Container from '../components/Container'
+import { Helmet } from 'react-helmet'
+import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
+import { Footer, ForwardBackNavSection } from '../components/Decorators'
+import { Switch, Icon, Intent } from '@blueprintjs/core'
 
-import YTAPI, { YoutubeCardResult } from '../api/youtubecards';
+import YTAPI, { YoutubeCardResult } from '../api/youtubecards'
 
-import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar'
 // import IndexLayout from '../layouts'
-import '../components/special/forms.scss';
-import '../components/special/links.scss';
-import '../components/special/sidebar.scss';
-import '../components/special/fonts.scss';
-import '../components/special/external_api.scss';
-import '../components/special/navigation.scss';
+import '../components/special/forms.scss'
+import '../components/special/links.scss'
+import '../components/special/sidebar.scss'
+import '../components/special/fonts.scss'
+import '../components/special/external_api.scss'
+import '../components/special/navigation.scss'
 
 // Popover and menus
-import { PopoverX } from '../components/MenuSection';
+import { PopoverX } from '../components/MenuSection'
 
 function IndexPage() {
   // STATE
@@ -29,7 +29,7 @@ function IndexPage() {
     { name: 'Kailee', alive: false },
     { name: 'John', alive: false },
     { name: 'Mia', alive: false }
-  ];
+  ]
 
   // const reducer = (people: string[], action: ReducerAction) => {
   //   if (action.type == "add") {
@@ -41,49 +41,58 @@ function IndexPage() {
   // const [state, dispatch] = React.useReducer(reducer, initialState);
 
   // STATE management
-  const [myLinkArray, setMyLinkArray] = useState(<></>);
-  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y']);
-  const [carousalHidden, setCarousalHidden] = useState(true);
+  const [myLinkArray, setMyLinkArray] = useState(<></>)
+  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y'])
+  const [carousalHidden, setCarousalHidden] = useState(true)
+  const updateCardsRef = useRef<HTMLInputElement>(null)
 
   function requestLinks(e: React.FormEvent<HTMLInputElement>) {
-    let target = e.target; // element data
-    let value = e.currentTarget.value; // gets text
-    let name = e.currentTarget.name; // if named, else empty string
+    let target = e.target // element data
+    let value = e.currentTarget.value // gets text
+    let name = e.currentTarget.name // if named, else empty string
     setMyLinkArray(
       <>
         <p>'Loading data...'</p>
       </>
-    ); // Loading screen
+    ) // Loading screen
 
-    let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/;
+    let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/
     if (carousalHidden == true) {
       if (ex.test(value)) {
         YTAPI.read().then(res => {
-          console.log('There it is. Sample obtained after success...', res);
-          setMyLinkArray(res);
-        });
+          console.log('There it is. Sample obtained after success...', res)
+          setMyLinkArray(res)
+        })
       } else {
         YTAPI.read().then((res: YoutubeCardResult) => {
-          const retval: any = []; // Returned React component
+          const retval: any = [] // Returned React component
           if (typeof res == 'undefined') {
-            console.log('Failed to obtain API data');
+            console.log('Failed to obtain API data')
           } else {
-            console.log('Sample obtained after failure...', res);
+            console.log('Sample obtained after failure...', res)
             // loop out the inks
-            let cardlinks: string[] = [];
+            let cardlinks: string[] = []
             res.data.forEach(linkobject => {
-              cardlinks = cardlinks.concat([linkobject]);
-            });
+              cardlinks = cardlinks.concat([linkobject])
+            })
 
-            retval.push(<YoutubeExhibit cardlinks={cardlinks} />);
-            setMyLinkArray(retval);
+            retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
+            setMyLinkArray(retval)
           }
-        });
+        })
       }
-      setCarousalHidden(false);
+      setCarousalHidden(false)
     } else {
       // hide carousal element if already visible
-      setCarousalHidden(true);
+      setCarousalHidden(true)
+    }
+  }
+
+  function updatecards() {
+    if (typeof updateCardsRef.current != 'undefined') {
+      console.log(updateCardsRef.current!.value)
+      let val = updateCardsRef.current!.value
+      YTAPI.update(val)
     }
   }
   return (
@@ -92,7 +101,9 @@ function IndexPage() {
         <Helmet></Helmet>
         <NavBar></NavBar>
         <div className="sidebar">
-          <Link to="/publications">Published papers</Link>
+          <Link className="navitem navitemActive" to="/publications">
+            Published papers
+          </Link>
           <Link to="/">Second Link</Link>
           <Link to="/dynamic-menus">Dynamic Menus</Link>
           <Link to="/licensing">Libraries/Licensing</Link>
@@ -129,8 +140,8 @@ function IndexPage() {
 
               <h3>Database queries</h3>
               <p>
-                Here is the demo for the database. The links are fetched from my faunadb database. Links can be added/removed in later
-                sections. This is just one carousal, but we can have any content, anywhere.
+                Here is a demo for the database. The links are fetched from a faunadb database. Try flipping the button below{' '}
+                <i>(labelled display carousal)</i> to fetch the links.
               </p>
               {/* Database query section */}
               <Switch label="Display Carousal" onChange={requestLinks} />
@@ -139,13 +150,14 @@ function IndexPage() {
 
               <h3>Adding links</h3>
               <p>
-                For now try adding a few more links to the database. Here are some links for example (straight up youtube links won't work.
-                The embed API expects the IDs. This can be handled in the backend, as well.)
+                We can add to the database from anywhere. Try one of these links. Paste them into the input section and press the lock icon.
+                If it's not a duplicate, it will get added. When we will turn the switch off and on above, we should get the updated links
+                for the carousal.
               </p>
               {/* Input group */}
               <div className="bp3-input-group .modifier">
-                <input type="url" className="bp3-input" placeholder="Enter valid youtube URL..." />
-                <button className="bp3-button bp3-minimal bp3-intent-warning bp3-icon-lock"></button>
+                <input ref={updateCardsRef} type="url" className="bp3-input" placeholder="Enter valid youtube URL..." />
+                <button className="bp3-button bp3-minimal bp3-intent-warning bp3-icon-lock" onClick={updatecards}></button>
               </div>
 
               <ul>
@@ -153,18 +165,17 @@ function IndexPage() {
                 <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
               </ul>
               <p>
-                On that note, this would be an offline functionality. Websites usually have a admin backdoor access. But our website is
-                headless, so content management is done offline.{' '}
+                On that note, this is not something that would be done online like this. Because our website is static, we don't have any
+                id-password or admin login or anything.
                 <i>(i.e.- everything is produced on the client-side, when a person visits/refreshes the page)</i>.
               </p>
 
-              <h3>Styling review</h3>
+              <h3>Extra thoughts</h3>
               <p>
-                These sort of style are more carefree and modern approach, meant for user . But we will need something looking like this for
-                the style for to be consistent and acceptable to websites from other departments and ERP itself.
+                Maybe flat styling like this and more conventional font choices would make the website more professional. Aside from adding
+                page contents, link sections like this would need to be added. The problem is, of course appropriate icon selection and
+                color palettes. A lot of sections for this website would be filled and look better with banners, logos and theming.
               </p>
-              <p>https://yapim.otoyolas.com.tr/wp-content/uploads/kaliteyayinlari/16_EK_2_MS_2_asphalt_mix_design_methods.pdf</p>
-              <p>A little bit of extra work is needed to convert direct youtube links</p>
 
               <ForwardBackNavSection
                 nextlink="/dynamic-menus/"
@@ -184,7 +195,7 @@ function IndexPage() {
         <Footer />
       </div>
     </>
-  );
+  )
 }
 
-export default IndexPage;
+export default IndexPage
