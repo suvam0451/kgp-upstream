@@ -1,14 +1,29 @@
 ---
 lyout: page
-title: List of libraries
+title: Dynamic sidebar
 ---
 
-Dynamic wordpress websites can push their contents category-wise. So, if we have lets say 10 books and 4 sections, we can put the cateogry in markdown headers and call it a day, like so.
+Right now, the sidebar is hard-coded. That is because we don't have enough sectons yet. After applying the code, it should look like this sidebar from my website.
+
+This basically makes a tree out of the markdown headers like so
+
+### How it works
+
+For my previous website, I divided the tree into categories and injected that into the markdown header,like so:
 
 ```md
 ---
-main: An example page
+path: '/tutorials/ue4/plugin-development-using-rust-2'
+title: 'Making a rust plug-in (Part 2/3)'
+date: '2019-19-12'
+tags: ['ue4', 'mdx', 'example']
+moduleID: 1
+submoduleID: 1
+seriesID: 1
+seriesIndex: 2
 ---
 
-Hello world !
+This is an example markdown file.
 ```
+
+After that, according to the moduleID, submoduleID, seriesIndex this will fall into the appropriate section and category.

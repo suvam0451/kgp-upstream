@@ -11,6 +11,8 @@ import { Switch, Icon, Intent } from '@blueprintjs/core'
 import YTAPI, { YoutubeCardResult, IResponse } from '../api/youtubecards'
 import DataInput from '../components/DataInput'
 
+import Sidebar from '../components/SidebarComponent'
+
 import NavBar from '../components/NavBar'
 // import IndexLayout from '../layouts'
 import '../components/special/forms.scss'
@@ -59,21 +61,8 @@ function IndexPage() {
     <>
       <div className="container_root">
         <Helmet></Helmet>
-        <NavBar></NavBar>
-        <div className="sidebar">
-          <Link className="navitem navitemActive" to="/publications">
-            Published papers
-          </Link>
-          <Link to="/">Second Link</Link>
-          <Link to="/dynamic-menus">Dynamic Menus</Link>
-          <Link to="/licensing">Libraries/Licensing</Link>
-          <PopoverX />
-          <div className="sidebar_footer">
-            <p>In association with</p>
-            <p>Dept. of Civl Engineering</p>
-            <p>IIT Kharagpur</p>
-          </div>
-        </div>
+        <NavBar />
+        <Sidebar />
         <Page>
           {/* All the children are flexboxed */}
           <div className="container_mainpage">

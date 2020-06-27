@@ -1,47 +1,47 @@
-import * as React from 'react';
-import { Link } from 'gatsby';
-import { graphql } from 'gatsby';
-import { Helmet } from 'react-helmet';
-import NavBar from '../components/NavBar';
-import Page from '../components/Page';
+import * as React from 'react'
+import { Link } from 'gatsby'
+import { graphql } from 'gatsby'
+import { Helmet } from 'react-helmet'
+import NavBar from '../components/NavBar'
+import Page from '../components/Page'
 
-import '../components/sections/markdown-post.scss';
-import "../components/special/blockquote.scss";
-import Container from '../components/Container';
+import '../components/sections/markdown-post.scss'
+import '../components/special/blockquote.scss'
+import Container from '../components/Container'
 
 // CSS
-import '../styles/gatsby-custom.scss';
-import { Footer } from '../components/Decorators';
-import { SidebarTypeC } from '../components/SidebarComponent';
+import '../styles/gatsby-custom.scss'
+import { Footer } from '../components/Decorators'
+import Sidebar from '../components/SidebarComponent'
 
 interface PageTemplateProps {
   data: {
     site: {
       siteMetadata: {
-        title: string;
-        description: string;
+        title: string
+        description: string
         author: {
-          name: string;
-          url: string;
-        };
-      };
-    };
+          name: string
+          url: string
+        }
+      }
+    }
     markdownRemark: {
-      html: string;
-      excerpt: string;
+      html: string
+      excerpt: string
       frontmatter: {
-        title: string;
-      };
-    };
-  };
+        title: string
+      }
+    }
+  }
 }
 
 const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
   <>
     <div className="container_root">
       <Helmet></Helmet>
-      <NavBar></NavBar>
-      <SidebarTypeC></SidebarTypeC>
+      <NavBar />
+      <Sidebar />
       <Page>
         {/* All the children are flexboxed */}
         <div className="container_mainpage">
@@ -64,9 +64,9 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
       <Footer />
     </div>
   </>
-);
+)
 
-export default PageTemplate;
+export default PageTemplate
 
 export const query = graphql`
   query PageTemplateQuery($slug: String!) {
@@ -88,4 +88,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`
