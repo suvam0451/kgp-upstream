@@ -1,2 +1,0 @@
-./functions-ts/ytcard-read.ts
-./functions-ts/ytcard-update.ts
