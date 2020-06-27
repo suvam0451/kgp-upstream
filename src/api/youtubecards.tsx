@@ -13,15 +13,20 @@ export interface YoutubeCardResult {
   ts: number
   data: string[]
 }
+export interface IResponseWithBody {
+  status: number
+  payload: any
+}
 
 /** Adds an entry if doesn't exist. */
 export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   if (typeof _ref.current != 'undefined') {
     let val = _ref.current!.value
-    console.log(val)
     setSection(<p>Processing query...</p>)
-    _update(val).then((res: IResponse) => {
-      switch (res.statusCode) {
+    _update(val).then(res => {
+      console.log('Now printing information...')
+      console.log(res, res.requestResult.statusCode)
+      switch (res.requestResult.statusCode) {
         case 201: {
           setSection(<p>Successfully added entry...</p>)
           break
@@ -89,21 +94,12 @@ async function _read() {
     })
 }
 
-const _update = (data: string) => {
+async function _update(data: string) {
   return fetch('/.netlify/functions/ytcard-update', {
-    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+    method: 'PUT',
     body: JSON.stringify(data)
   }).then(res => {
-    console.log(res.status, res.statusText)
-
-    switch (res.status) {
-      case 500: {
-        return { statusCode: 500, body: [] }
-      }
-      default: {
-        return res.json()
-      }
-    }
+    return res.json() // results appended to "res.requestResult"
   })
 }
 

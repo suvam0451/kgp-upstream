@@ -18,16 +18,10 @@ exports.handler = (event: any, context: any, callback: Function) => {
   })
 
   let data: string = JSON.parse(event.body)
-  let ex: RegExp = /www.youtube.com\/watch\?v=([_-=a-zA-Z0-9]+)/
+  let ex: RegExp = /www.youtube.com\/watch\?v=([_\-=a-zA-Z0-9]+)/
 
   if (ex.test(data)) {
     // Prepare the export data
-    let exportData: IYoutubeEmbed = {
-      link: 'link',
-      tags: 'mainpage',
-      id: data,
-      desc: ''
-    }
     let exportItem = {
       data: {
         id: data.match(ex)[1],
@@ -43,18 +37,28 @@ exports.handler = (event: any, context: any, callback: Function) => {
       (res: any) => {
         // Check for empty response
         if (!Object.keys(res.data).length) {
-          //   console.log('Entry not found. adding...')
-          return client.query(q.Create(q.Collection('youtubecards'), exportItem)).then(res => {
-            return {
-              status: 201, // Created
-              body: JSON.stringify(res)
+          console.log('Entry not found. adding...')
+          return client.query(q.Create(q.Collection('youtubecards'), exportItem)).then(
+            res => {
+              console.log('response(success): ', res)
+              return {
+                statusCode: 201, // Created
+                body: JSON.stringify(res)
+              }
+            },
+            err => {
+              console.log('response(failure): ', err)
+              return {
+                statusCode: 400, // Created
+                body: JSON.stringify(err)
+              }
             }
-          })
+          )
         } else {
           // entry already exists
-          //   console.log('Entry found. Skipping...')
+          console.log('Entry found. Skipping...')
           return {
-            status: 409, // Conflict
+            statusCode: 409, // Conflict
             body: JSON.stringify([])
           }
         }
@@ -62,14 +66,14 @@ exports.handler = (event: any, context: any, callback: Function) => {
       err => {
         // console.log('failure', err)
         return {
-          status: 400,
+          statusCode: 400,
           body: JSON.stringify(err)
         }
       }
     )
   } else {
     return {
-      status: 400,
+      statusCodeCode: 400,
       body: []
     }
   }
