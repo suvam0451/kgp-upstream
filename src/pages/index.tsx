@@ -8,7 +8,8 @@ import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
 import { Footer, ForwardBackNavSection } from '../components/Decorators'
 import { Switch, Icon, Intent } from '@blueprintjs/core'
 
-import YTAPI, { YoutubeCardResult } from '../api/youtubecards'
+import YTAPI, { YoutubeCardResult, IResponse } from '../api/youtubecards'
+import DataInput from '../components/DataInput'
 
 import NavBar from '../components/NavBar'
 // import IndexLayout from '../layouts'
@@ -21,6 +22,7 @@ import '../components/special/navigation.scss'
 
 // Popover and menus
 import { PopoverX } from '../components/MenuSection'
+import forwardRef from 'react'
 
 function IndexPage() {
   // STATE
@@ -44,56 +46,14 @@ function IndexPage() {
   const [myLinkArray, setMyLinkArray] = useState(<></>)
   const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y'])
   const [carousalHidden, setCarousalHidden] = useState(true)
+  const [queryStatusSection, setQueryStatusSection] = useState(<></>)
   const updateCardsRef = useRef<HTMLInputElement>(null)
+  const deleteCardsRef = useRef<HTMLInputElement>(null)
 
-  function requestLinks(e: React.FormEvent<HTMLInputElement>) {
-    let target = e.target // element data
-    let value = e.currentTarget.value // gets text
-    let name = e.currentTarget.name // if named, else empty string
-    setMyLinkArray(
-      <>
-        <p>'Loading data...'</p>
-      </>
-    ) // Loading screen
-
-    let ex: RegExp = /www.youtube.com\/embed\/videoseries\?list=/
-    if (carousalHidden == true) {
-      if (ex.test(value)) {
-        YTAPI.read().then(res => {
-          console.log('There it is. Sample obtained after success...', res)
-          setMyLinkArray(res)
-        })
-      } else {
-        YTAPI.read().then((res: YoutubeCardResult) => {
-          const retval: any = [] // Returned React component
-          if (typeof res == 'undefined') {
-            console.log('Failed to obtain API data')
-          } else {
-            console.log('Sample obtained after failure...', res)
-            // loop out the inks
-            let cardlinks: string[] = []
-            res.data.forEach(linkobject => {
-              cardlinks = cardlinks.concat([linkobject])
-            })
-
-            retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
-            setMyLinkArray(retval)
-          }
-        })
-      }
-      setCarousalHidden(false)
-    } else {
-      // hide carousal element if already visible
-      setCarousalHidden(true)
-    }
-  }
-
-  function updatecards() {
-    if (typeof updateCardsRef.current != 'undefined') {
-      console.log(updateCardsRef.current!.value)
-      let val = updateCardsRef.current!.value
-      YTAPI.update(val)
-    }
+  function deletecards(_ref: React.RefObject<HTMLInputElement>) {
+    console.log('Delete function called...')
+    console.log(_ref.current?.value)
+    return <></>
   }
   return (
     <>
@@ -144,7 +104,12 @@ function IndexPage() {
                 <i>(labelled display carousal)</i> to fetch the links.
               </p>
               {/* Database query section */}
-              <Switch label="Display Carousal" onChange={requestLinks} />
+              <Switch
+                label="Display Carousal"
+                onChange={() => {
+                  YTAPI.readcards(setMyLinkArray, setCarousalHidden, carousalHidden)
+                }}
+              />
               {/* CArousal section */}
               {carousalHidden ? null : <div>{myLinkArray}</div>}
 
@@ -155,11 +120,14 @@ function IndexPage() {
                 for the carousal.
               </p>
               {/* Input group */}
-              <div className="bp3-input-group .modifier">
-                <input ref={updateCardsRef} type="url" className="bp3-input" placeholder="Enter valid youtube URL..." />
-                <button className="bp3-button bp3-minimal bp3-intent-warning bp3-icon-lock" onClick={updatecards}></button>
-              </div>
-
+              <DataInput
+                onClick={() => {
+                  YTAPI.updatecards(updateCardsRef, setQueryStatusSection)
+                }}
+                placeholder="Enter valid youtube URL..."
+                ref={updateCardsRef}
+              />
+              <div>{queryStatusSection}</div>
               <ul>
                 <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
                 <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
@@ -169,6 +137,16 @@ function IndexPage() {
                 id-password or admin login or anything.
                 <i>(i.e.- everything is produced on the client-side, when a person visits/refreshes the page)</i>.
               </p>
+
+              <h3>Deleting entries</h3>
+              <p>Missing content</p>
+              <DataInput
+                onClick={() => {
+                  deletecards(deleteCardsRef)
+                }}
+                placeholder="Placeholder..."
+                ref={deleteCardsRef}
+              />
 
               <h3>Extra thoughts</h3>
               <p>
