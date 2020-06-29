@@ -5,6 +5,7 @@ export interface IDataInputProps {
   placeholder?: string
 }
 
+/** Input section. Accepts and onClick callback function. */
 export default forwardRef<HTMLInputElement, IDataInputProps>((props, _ref) => {
   return (
     <div className="bp3-input-group .modifier">

@@ -1,0 +1,15 @@
+@import "./breakpoints.scss";
+
+// Applies space in left, considering the sidebar.
+// Should be applied to divs on the main-page
+@mixin sidebar_offset {
+    @include apply_for(mobile) {
+        padding-left: 0px;
+    }
+    @include apply_for(tablet) {
+        padding-left: 254px;
+    }
+    @include apply_for(pc) {
+        padding-left: 254px;
+    }
+}

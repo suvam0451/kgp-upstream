@@ -3,12 +3,6 @@ import { graphql, Link } from 'gatsby'
 import { Navbar, NavbarHeading } from '@blueprintjs/core'
 import styled from '@emotion/styled'
 
-const ComponentStyle = styled('div')`
-  max-width: 1920px;
-  margin: 0 auto;
-  z-index: 40;
-`
-
 const DesktopNavbarSection = styled('div')`
   display: none;
   @media (min-width: 540px) {
@@ -48,7 +42,7 @@ function NavSection() {
   }
 
   return (
-    <ComponentStyle>
+    <div className="navbar_main">
       <Navbar>
         <div className="bp3-navbar-group bp3-align-left">
           <NavbarHeading>Sample Website</NavbarHeading>
@@ -72,7 +66,7 @@ function NavSection() {
           </button>
         </MobileNavbar>
       </Navbar>
-    </ComponentStyle>
+    </div>
   )
 }
 

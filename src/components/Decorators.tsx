@@ -29,12 +29,13 @@ function DownloadButton(Props: DownloadProps) {
 // Default page footer
 function Footer() {
   return (
-    <div className="footer01">
-      <div className="layout_mainpage" />
-      <div className="layout_mainpage">
-        <h3>Thank you for visiting!</h3>
-        <h6>Please visit again.</h6>
-        <p>Section for additional links and redirects</p>
+    <div className="div_visitagain">
+      <div className="footer01">
+        <div>
+          <h3>Thank you for visiting!</h3>
+          <h6>Please visit again.</h6>
+          <p>Section for additional links and redirects</p>
+        </div>
       </div>
     </div>
   )

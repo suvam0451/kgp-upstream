@@ -37,7 +37,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'content',
-        path: `${__dirname}/src/content`
+        path: `${__dirname}/src/content/`
       }
     },
     {
@@ -53,7 +53,7 @@ module.exports = {
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
-              classPrefix: 'language-js', // check other default languages
+              // classPrefix: 'language-', // check other default languages
               inlineCodeMarker: null,
               showLineNumbers: true,
               noInlineHighlight: false, // `code` objects

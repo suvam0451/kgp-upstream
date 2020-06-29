@@ -1,4 +1,4 @@
-@import '../../mixins/params.scss';
+@import "../../mixins/library.scss";
 
 // import "../components/special/external_api.scss"
 .researchgate_embed {
@@ -6,6 +6,15 @@
   width: 300px;
 }
 
+// Section A + C = 300px + 220px
+$maxwidth_container: 1920px;
+$maxwidth_sectionB: 1500px;
+
+$width_setionA: 220px;
+$width_setionB: 220px;
+$width_setionC: 220px;
+
+$margin_sectionB: 1.4rem;
 // .researchgate_embed_container {
 //   height: 800px;
 //   width: 300px;
@@ -22,7 +31,7 @@
 
 // HANDLES SCREENWIDTH CHANGES
 .container_root {
-  max-width: 1200px;
+  max-width: $maxwidth_container;
 
   @media screen and (max-width: $width_phone2) {
     max-width: $width_phone2;
@@ -40,7 +49,7 @@
 // DEFAULT LAYOUT OPTIONS
 
 .container_mainpage {
-  max-width: 1920px;
+  max-width: $maxwidth_container;
   display: flex;
   margin: auto;
   width: 100%;
@@ -48,11 +57,11 @@
 
 .layout_mainpage {
   &:nth-child(1) {
-    width: 210px;
+    width: $width_setionA;
     @apply flex-none;
   }
   &:nth-child(2) {
-    max-width: 1080px;
+    max-width: maxwidth_sectionB;
     flex-grow: 1;
   }
   &:nth-child(3) {
@@ -92,12 +101,13 @@
 @media screen and (min-width: 1280px) {
   .layout_mainpage {
     &:nth-child(1) {
-      width: 210px;
+      width: $width_setionA;
       @apply flex-none;
     }
     &:nth-child(2) {
       @apply flex-auto;
-      @apply mx-2;
+      margin-left: $margin_sectionB;
+      margin-right: $margin_sectionB;
     }
     &:nth-child(3) {
       display: block;
@@ -110,13 +120,13 @@
 @media screen and (min-width: 768px) and (max-width: 1280px) {
   .layout_mainpage {
     &:nth-child(1) {
-      width: 210px;
+      width: $width_setionA;
       @apply flex-none;
     }
     &:nth-child(2) {
       @apply flex-auto;
-      @apply ml-2;
-      @apply mr-0;
+      margin-left: $margin_sectionB;
+      margin-right: $margin_sectionB;
     }
     &:nth-child(3) {
       width: 0px;
@@ -128,8 +138,17 @@
 
 // Page footer. Has to change with screen size
 .footer01 {
-  @apply bg-gray-600;
   @apply px-4;
   @apply py-2;
   display: flex;
+}
+
+div.div_visitagain {
+  @apply bg-gray-600;
+  @include sidebar_offset();
+}
+
+div.div_mainfooter {
+  background-color: #212121;
+  @include sidebar_offset();
 }

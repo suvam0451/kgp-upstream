@@ -1,6 +1,7 @@
 ---
 lyout: page
 title: Dynamic sidebar
+idx_sidebar: 2
 ---
 
 Right now, the sidebar is hard-coded. That is because we don't have enough sectons yet. After applying the code, it should look like this sidebar from my website.

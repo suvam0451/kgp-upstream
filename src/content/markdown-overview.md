@@ -1,6 +1,7 @@
 ---
 lyout: page
 title: Example Markdown page
+idx_sidebar: 1
 ---
 
 ### Fox climbs

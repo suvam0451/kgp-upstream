@@ -2,25 +2,48 @@
 
 // import "../components/special/sidebar.css"
 .sidebar {
-  height: 100%;
+  height: auto;
   position: fixed;
+  // top: 48px;
+  height: 100%;
   z-index: 1;
-  top: 26px;
-  left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
-  @apply shadow-lg;
+  // uniform padding
+  padding-left: 1rem;
+  padding-top: 1rem;
   padding-right: 1rem;
+  @apply shadow-lg;
   max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  * a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 21px;
+    color: #818181;
+    display: block;
+    line-height: 1em;
+    text-align: left;
+  }
 }
 
+// Middle link section
+.sidebar_linksection {
+  flex: 1 0 auto;
+  padding-left: 0.6rem;
+  padding-top: 160px;
+}
+
+// bottom credit section of sidebar
 .sidebar_footer {
-  position: absolute;
-  bottom: 32px;
+  flex: 0 0 120px;
+  // margin: auto;
+  padding-bottom: 1rem;
   color: #818181;
-  padding-left: 0.5em;
-  width: 100%;
   & > p {
     line-height: 0.5em;
     font-size: medium;
@@ -31,16 +54,7 @@
 }
 
 .sidebar :first-child {
-  margin-top: 120px;
-}
-
-.sidebar a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 21px;
-  color: #818181;
-  display: block;
-  line-height: 1em;
+  margin-top: 40px;
 }
 
 /* When you mouse over the navigation links, change their color */

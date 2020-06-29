@@ -1,6 +1,7 @@
 ---
 lyout: page
 title: List of libraries
+idx_sidebar: 3
 ---
 
 Here is the complete list of libraries used to build this website.

@@ -2,8 +2,13 @@
  * If you already use line highlighting
  */
 
+code.language-text {
+  background: rgba(255, 229, 100, 0.2) !important;
+  color: #1a1a1a !important;
+}
+
 /* Adjust the position of the line numbers */
-.gatsby-highlight pre[class*='language-'].line-numbers {
+.gatsby-highlight pre[class*="language-"].line-numbers {
   padding-left: 2.8em;
 }
 
@@ -19,7 +24,7 @@
   overflow: auto;
 }
 
-.gatsby-highlight pre[class*='language-'].line-numbers {
+.gatsby-highlight pre[class*="language-"].line-numbers {
   padding: 0;
   padding-left: 2.8em;
   overflow: initial;

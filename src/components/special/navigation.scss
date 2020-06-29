@@ -9,6 +9,8 @@
     (src: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container)
 */
 
+@import "../../mixins/breakpoints.scss";
+
 // Elements will flex out to left and right
 .container_nextandback {
   display: flex;
@@ -60,12 +62,35 @@ a.navitem {
 
 a.navitemActive {
   &::before {
-    content: '';
+    content: "";
     width: 5px;
     position: absolute;
     left: -20px;
     bottom: 2px;
     top: 2px;
     background-color: blue($color: #000000);
+  }
+}
+
+div.navbar_main {
+  max-width: 1920px;
+  margin: 0 auto;
+  z-index: 40;
+  position: fixed;
+  width: 100%;
+}
+
+div.area_scrollable {
+  display: block;
+  flex: 1;
+  position: relative;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  padding-top: 4.5rem;
+  // padding-left: 0.5rem;
+
+  @include apply_for(mobile) {
+    padding: 1rem;
+    padding-top: 3rem;
   }
 }

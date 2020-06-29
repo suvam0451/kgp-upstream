@@ -1,4 +1,4 @@
-import React, { useState, EventHandler, useRef, useReducer, ReducerAction } from 'react'
+import React, { useState, EventHandler, useRef, useReducer, ReducerAction, ReactNode } from 'react'
 import { Link } from 'gatsby'
 
 import Page from '../components/Page'
@@ -8,9 +8,12 @@ import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
 import { Footer, ForwardBackNavSection } from '../components/Decorators'
 import { Switch, Icon, Intent } from '@blueprintjs/core'
 
+// FontAwesome
+import '../components/FontAwesomeLib'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import YTAPI, { YoutubeCardResult, IResponse } from '../api/youtubecards'
 import DataInput from '../components/DataInput'
-import Search from '../components/SearchContainer'
 
 import Sidebar from '../components/SidebarComponent'
 
@@ -22,28 +25,48 @@ import '../components/special/sidebar.scss'
 import '../components/special/fonts.scss'
 import '../components/special/external_api.scss'
 import '../components/special/navigation.scss'
-
-// Popover and menus
-import { PopoverX } from '../components/MenuSection'
-import forwardRef from 'react'
+import '../components/special/extension.scss'
+import '../components/special/fontawesome.scss'
+import '../components/special/springs.scss'
 
 function IndexPage() {
-  // STATE
-  const deadPeople = () => [
-    { name: 'Jay', alive: false },
-    { name: 'Kailee', alive: false },
-    { name: 'John', alive: false },
-    { name: 'Mia', alive: false }
+  interface LinkArray {
+    label: string
+    link: string
+    internal?: boolean
+  }
+
+  const FooterLinkData: LinkArray[][] = [
+    [
+      {
+        label: 'Curriculum(UG)',
+        link: 'https://erp.iitkgp.ac.in/ERPWebServices/curricula/specialisationList.jsp?stuType=UG'
+      },
+      {
+        label: 'ERP',
+        link: 'https://erp.iitkgp.ac.in/'
+      },
+      {
+        label: 'Announcements',
+        link: 'https://www.iitkgp.ac.in/iitkgp-announcements'
+      },
+      {
+        label: 'Web Mail',
+        link: 'https://iitkgpmail.iitkgp.ac.in/'
+      }
+    ],
+    [
+      { label: 'News', link: 'http://www.iitkgp.ac.in/news' },
+      { label: 'News', link: 'http://www.iitkgp.ac.in/news' },
+      { label: 'News', link: 'http://www.iitkgp.ac.in/news' },
+      {
+        label: 'Event Calender',
+        link: 'http://www.iitkgp.ac.in/events'
+      }
+    ],
+    [{ label: 'For Webmasters', link: '/webmaster', internal: true }],
+    [{ label: 'Privacy Policy', link: '/privacy-policy', internal: true }]
   ]
-
-  // const reducer = (people: string[], action: ReducerAction) => {
-  //   if (action.type == "add") {
-  //     return person;
-  //   }
-  // };
-
-  // Reducers
-  // const [state, dispatch] = React.useReducer(reducer, initialState);
 
   // STATE management
   const [myLinkArray, setMyLinkArray] = useState(<></>)
@@ -58,16 +81,34 @@ function IndexPage() {
     console.log(_ref.current?.value)
     return <></>
   }
+
+  function FooterLinkSection(index: number) {
+    let retval: any = []
+    FooterLinkData[index].forEach(pair => {
+      if (typeof pair.internal == 'undefined') {
+        retval.push(
+          <li>
+            <a href={pair.link}>{pair.label}</a>
+          </li>
+        )
+      } else {
+        retval.push(
+          <li>
+            <Link to={pair.link}>{pair.label}</Link>
+          </li>
+        )
+      }
+    })
+    return <ul>{retval}</ul>
+  }
   return (
     <>
       <div className="container_root">
         <Helmet></Helmet>
         <NavBar />
-        <Sidebar />
-        <Page>
-          {/* All the children are flexboxed */}
+        <Sidebar SectionIdx={0} />
+        <div className="area_scrollable">
           <div className="container_mainpage">
-            {/* floating Sidebar div (Hidden in mobile) */}
             <div className="layout_mainpage" />
             <div className="layout_mainpage">
               <h1>Introduction page</h1>
@@ -76,7 +117,6 @@ function IndexPage() {
                 aproduction site. This is just to demonstrate that videos can be dynamically added via youtube/facebook API... or someone
                 can add the links offline and they will be available here...
               </p>
-              <Search />
               <blockquote>
                 I think the researchgate embed service is not active 24*7. The right section may appear empty, at times.
               </blockquote>
@@ -163,8 +203,29 @@ function IndexPage() {
               />
             </div>
           </div>
-        </Page>
+        </div>
         <Footer />
+        <div className="div_mainfooter">
+          <div className="main_footer">
+            <div className="section_link_groups">
+              <h3 className="ml-2">External Links</h3>
+              <hr />
+              <div className="link_group">
+                {FooterLinkSection(0)}
+                {FooterLinkSection(1)}
+              </div>
+            </div>
+            <div className="section_link_groups">
+              <h3 className="ml-2">Internal Links</h3>
+              <hr />
+
+              <div className="link_group">
+                {FooterLinkSection(2)}
+                {FooterLinkSection(3)}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )
