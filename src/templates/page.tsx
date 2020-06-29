@@ -10,6 +10,7 @@ import '../components/special/blockquote.scss'
 import '../components/special/tables.scss'
 
 import Container from '../components/Container'
+import Search from '../components/ClientSearch'
 
 // CSS
 import '../styles/gatsby-custom.scss'
@@ -36,9 +37,10 @@ interface PageTemplateProps {
       }
     }
   }
+  pageContext: any
 }
 
-const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
+const PageTemplate: React.FC<PageTemplateProps> = ({ data, pageContext }) => (
   <>
     <div className="container_root">
       <Helmet></Helmet>
@@ -50,6 +52,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => (
           {/* floating Sidebar div (Hidden in mobile) */}
           <div className="layout_mainpage" />
           <div className="layout_mainpage">
+            <Search books={pageContext.bookData.allBooks} engine={pageContext.bookData.options} placeholder="Search for books" />
             <h1>{data.markdownRemark.frontmatter.title}</h1>
             {/* eslint-disable-next-line react/no-danger */}
             <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />

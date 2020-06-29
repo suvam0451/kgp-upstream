@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const axios = require('axios')
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
@@ -41,6 +42,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
+  let bookdata = await axios.get('https://bvaughn.github.io/js-search/books.json')
+  const { data } = bookdata
   const allMarkdown = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -78,7 +81,17 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/${layout || 'page'}.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug
+        slug,
+        bookData: {
+          allBooks: data.books,
+          options: {
+            indexStrategy: 'Prefix match',
+            searchSanitizer: 'Lower Case',
+            TitleIndex: true,
+            AuthorIndex: true,
+            SearchByTerm: true
+          }
+        }
       }
     })
   })
