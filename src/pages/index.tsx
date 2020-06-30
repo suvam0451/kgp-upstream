@@ -1,18 +1,14 @@
-import React, { useState, EventHandler, useRef, useReducer, ReducerAction, ReactNode } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'gatsby'
 
-import Page from '../components/Page'
-import Container from '../components/Container'
 import { Helmet } from 'react-helmet'
-import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
 import { Footer, ForwardBackNavSection } from '../components/Decorators'
 import { Switch, Icon, Intent } from '@blueprintjs/core'
 
 // FontAwesome
 import '../components/FontAwesomeLib'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import YTAPI, { YoutubeCardResult, IResponse } from '../api/youtubecards'
+import YTAPI from '../api/youtubecards'
 import DataInput from '../components/DataInput'
 
 import Sidebar from '../components/SidebarComponent'
