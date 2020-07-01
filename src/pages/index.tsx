@@ -6,24 +6,12 @@ import { Footer, ForwardBackNavSection } from '../components/Decorators'
 import { Switch, Icon, Intent } from '@blueprintjs/core'
 
 // FontAwesome
-import '../components/FontAwesomeLib'
-
 import YTAPI from '../api/youtubecards'
 import DataInput from '../components/DataInput'
-
 import Sidebar from '../components/SidebarComponent'
-
 import NavBar from '../components/NavBar'
-// import IndexLayout from '../layouts'
-import '../components/special/forms.scss'
-import '../components/special/links.scss'
-import '../components/special/sidebar.scss'
-import '../components/special/fonts.scss'
-import '../components/special/external_api.scss'
-import '../components/special/navigation.scss'
-import '../components/special/extension.scss'
-import '../components/special/fontawesome.scss'
-import '../components/special/springs.scss'
+import '../components/FontAwesomeLib'
+import '../components/special/@styles.css'
 
 function IndexPage() {
   interface LinkArray {

@@ -1,15 +1,9 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
 import { graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import NavBar from '../components/NavBar'
-import Page from '../components/Page'
 
-import '../components/sections/markdown-post.scss'
-import '../components/special/blockquote.scss'
-import '../components/special/tables.scss'
-
-import Container from '../components/Container'
+import '../components/special/@styles.css'
 import Search from '../components/ClientSearch'
 
 // CSS
