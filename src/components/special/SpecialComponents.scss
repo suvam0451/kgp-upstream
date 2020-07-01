@@ -1,8 +1,7 @@
 // omport
 @charset 'UTF-8';
 
-
-@import "../../mixins/center.scss";
+@import "../../mixins/library.scss";
 
 $break-min: 0px;
 $break-small: 1000px;
@@ -82,19 +81,49 @@ $tile-bg: #c6538e;
 .section_youtube_carousal {
   @apply mx-8;
   margin: auto;
-  @media screen and (min-width: $break-min) {
-    width: auto;
-    float: none;
+  padding-top: 1rem;
+  
+  @include apply_for(pc) {
+    width: 720px;
   }
+  // @media screen and (min-width: $break-min) {
+  //   width: auto;
+  //   float: none;
+  // }
 
-  @media screen and (min-width: $break-small) {
-    width: auto;
-    float: none;
-  }
+  // @media screen and (min-width: $break-small) {
+  //   width: auto;
+  //   float: none;
+  // }
 }
 
 .component_youtube_carousal {
   margin: auto;
   align-items: center;
-  @include centerx(1080px);
+  margin-left: 140px;
+  // @include centerx(auto);
+}
+
+/** SLICK COMPONENTS */
+.slick-slide {
+  > div {
+    > div {
+
+    }
+  }
+}
+
+.slick-arrow, .slick-prev {
+  height: 28px;
+  width: 28px;
+  background-color: black;
+  &:focus {
+    background-color: red;
+  }
+  &:hover {
+    background-color: red;
+  }
+}
+.slick-slider {
+  margin-bottom: 1.6rem;
 }

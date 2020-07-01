@@ -58,8 +58,8 @@ exports.handler = (event: any, context: any, callback: Function) => {
           // entry already exists
           console.log('Entry found. Skipping...')
           return {
-            statusCode: 409, // Conflict
-            body: JSON.stringify([])
+            statusCode: 409 // Conflict
+            // body: JSON.stringify([])
           }
         }
       },

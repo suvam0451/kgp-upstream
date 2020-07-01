@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, memo } from 'react'
 import { Link } from 'gatsby'
 
 import { Helmet } from 'react-helmet'
@@ -25,12 +25,60 @@ import '../components/special/extension.scss'
 import '../components/special/fontawesome.scss'
 import '../components/special/springs.scss'
 
-function IndexPage() {
+const arePropsEqual = (prevProps: IIndexPageProps, nextProps: IIndexPageProps) => {
+  // Empty or unchanged
+  // if (nextProps.updateLinkTest === '' || prevProps.updateLinkTest === nextProps.updateLinkTest) {
+  //   return true
+  // } else {
+  //   return false
+  // }
+  return false
+}
+
+interface IIndexPageProps {
+  updateLinkTest: string
+  deleteLinkTest: string
+}
+function IndexPage(props: IIndexPageProps) {
   interface LinkArray {
     label: string
     link: string
     internal?: boolean
   }
+
+  // STATE management
+  const [myLinkArray, setMyLinkArray] = useState(<></>)
+  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y'])
+  const [carousalHidden, setCarousalHidden] = useState(false)
+  const [queryStatusSection, setQueryStatusSection] = useState(<></>)
+  const updateCardsRef = useRef<HTMLInputElement>(null)
+  const deleteCardsRef = useRef<HTMLInputElement>(null)
+  const [insertValue, setInsertValue] = useState('')
+  const [updateLinkValid, setUpdateLinkValid] = useState(false)
+  const [updateInputCSS, setUpdateInputCSS] = useState('bp3-input')
+
+  React.useEffect(() => {
+    let ex: RegExp = /www.youtube.com\/watch\?v=([_\-=a-zA-Z0-9]{11})/
+    let updateTarget = updateCardsRef.current?.value!
+
+    // Update color of input component
+    if (updateTarget !== '') {
+      if (ex.test(updateTarget)) {
+        setUpdateInputCSS('bp3-input bp3-intent-success')
+        setUpdateLinkValid(true)
+      } else {
+        setUpdateInputCSS('bp3-input bp3-intent-danger')
+        setUpdateLinkValid(false)
+      }
+    } else {
+      setUpdateInputCSS('bp3-input')
+      setUpdateLinkValid(false)
+    }
+
+    return () => {
+      // cleanup
+    }
+  }, [carousalHidden, updateCardsRef.current?.value])
 
   const FooterLinkData: LinkArray[][] = [
     [
@@ -64,20 +112,13 @@ function IndexPage() {
     [{ label: 'Privacy Policy', link: '/privacy-policy', internal: true }]
   ]
 
-  // STATE management
-  const [myLinkArray, setMyLinkArray] = useState(<></>)
-  const [cardLinks, setCardLinks] = useState<string[] | null>(['fdkU6MgrUV4', 'RIZdjT1472Y'])
-  const [carousalHidden, setCarousalHidden] = useState(true)
-  const [queryStatusSection, setQueryStatusSection] = useState(<></>)
-  const updateCardsRef = useRef<HTMLInputElement>(null)
-  const deleteCardsRef = useRef<HTMLInputElement>(null)
-
   function deletecards(_ref: React.RefObject<HTMLInputElement>) {
     console.log('Delete function called...')
     console.log(_ref.current?.value)
     return <></>
   }
 
+  // function updateButtonAction
   function FooterLinkSection(index: number) {
     let retval: any = []
     FooterLinkData[index].forEach(pair => {
@@ -131,15 +172,17 @@ function IndexPage() {
               <h3>Database queries</h3>
               <p>
                 Here is a demo for the database. The links are fetched from a faunadb database. Try flipping the button below{' '}
-                <i>(labelled display carousal)</i> to fetch the links.
+                <i>(labelled display carousal)</i> to fetch the links. Leaving it unstyled for now, because the actual need of the project
+                is unknown.
               </p>
               {/* Database query section */}
-              <Switch
+              {/* <Switch
                 label="Display Carousal"
                 onChange={() => {
-                  YTAPI.readcards(setMyLinkArray, setCarousalHidden, carousalHidden)
+                  // YTAPI.readcards(setMyLinkArray, setCarousalHidden, carousalHidden)
+                  setCarousalHidden(!carousalHidden)
                 }}
-              />
+              /> */}
               {/* CArousal section */}
               {carousalHidden ? null : <div>{myLinkArray}</div>}
               <blockquote>After adding more links from the section below, try flipping the switch off and on again.</blockquote>
@@ -150,18 +193,38 @@ function IndexPage() {
                 for the carousal.
               </p>
               {/* Input group */}
-              <DataInput
+              {/* <DataInput
                 onClick={() => {
-                  YTAPI.updatecards(updateCardsRef, setQueryStatusSection)
+
                 }}
                 placeholder="Enter valid youtube URL..."
                 ref={updateCardsRef}
-              />
+              /> */}
+              <div className="bp3-input-group .modifier">
+                <input
+                  onChange={() => {
+                    // console.log('Input is', updateCardsRef.current?.value!)
+                    setInsertValue(updateCardsRef.current?.value!)
+                    //
+                  }}
+                  ref={updateCardsRef}
+                  type="url"
+                  className={updateInputCSS}
+                  placeholder="Enter valid youtube URL..."
+                />
+                <button
+                  className="bp3-button bp3-minimal bp3-intent-warning bp3-icon-lock"
+                  onClick={() => {
+                    updateLinkValid ? YTAPI.updatecards(updateCardsRef, setMyLinkArray) : console.log('Input invalid...')
+                  }}
+                />
+              </div>
               <div>{queryStatusSection}</div>
               <ul>
                 <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
                 <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
               </ul>
+              <p>It should have form validation and respond to invalid links</p>
               <p>
                 On that note, this is not something that would be done online like this. Because our website is static, we don't have any
                 id-password or admin login or anything.
@@ -227,4 +290,5 @@ function IndexPage() {
   )
 }
 
+// export default memo(IndexPage, arePropsEqual)
 export default IndexPage

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
+import { resolve } from 'dns'
 
 interface IYoutubeEmbed {
   link: string
@@ -13,6 +14,19 @@ export interface YoutubeCardResult {
   ts: number
   data: string[]
 }
+
+// 200
+export interface IResultYTCardUpdate {
+  ref: any
+  ts: number
+  data: {
+    id: string
+    link: string
+    desc: string
+    tags: string
+  }
+}
+
 export interface IResponseWithBody {
   status: number
   payload: any
@@ -22,27 +36,22 @@ export interface IResponseWithBody {
 export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   if (typeof _ref.current != 'undefined') {
     let val = _ref.current!.value
-    setSection(<p>Processing query...</p>)
+    // setSection(<p>Processing query...</p>)
     _update(val).then(res => {
-      console.log('Now printing information...')
-      console.log(res, res.requestResult.statusCode)
-      switch (res.requestResult.statusCode) {
-        case 201: {
-          setSection(<p>Successfully added entry...</p>)
-          break
-        }
-        case 409: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
-        case 400: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
-        default: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
+      // console.log('Now printing information...')
+      // console.log(res, res.requestResult.statusCode)
+      console.log(res)
+      if (typeof res != 'undefined') {
+        setSection(<p>Successfully added entry for {res.data.id}...</p>)
+      } else {
+        setSection(
+          <p>
+            <b>
+              <i>Duplicate detected for {val}</i>
+            </b>
+          </p>
+        )
+        // setSection(<p>Successfully added entry for {res.data.id}...</p>)
       }
     })
   }
@@ -69,14 +78,16 @@ export function readcards(
           cardlinks = cardlinks.concat([linkobject])
         })
 
+        console.log('Setting successful...')
+
         retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
         setSection(retval)
       }
     })
-    setSwitch(false)
+    // setSwitch(false)
   } else {
     // hide carousal element if already visible
-    setSwitch(true)
+    // setSwitch(true)
   }
 }
 
@@ -94,12 +105,25 @@ async function _read() {
     })
 }
 
-async function _update(data: string) {
+async function _update(data: string): Promise<IResultYTCardUpdate | undefined> {
   return fetch('/.netlify/functions/ytcard-update', {
     method: 'PUT',
     body: JSON.stringify(data)
   }).then(res => {
-    return res.json() // results appended to "res.requestResult"
+    return new Promise<IResultYTCardUpdate | undefined>((resolve, reject) => {
+      switch (res.status) {
+        case 201: {
+          resolve(res.json()) // results appended to "res.requestResult"
+        }
+        case 400: {
+          resolve(undefined)
+          // return
+        }
+        default: {
+          resolve(undefined)
+        }
+      }
+    })
   })
 }
 

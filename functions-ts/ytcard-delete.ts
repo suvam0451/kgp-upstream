@@ -38,6 +38,8 @@ exports.handler = (event: any, context: any, callback: Function) => {
             }
           })
         } else {
+          // Entry found... deleting
+          return client.query(q.Delete(q.Ref(q.Collection('spells')))).then(ret => console.log(ret))
           // entry already exists
           //   console.log('Entry found. Skipping...')
           return {
