@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import NavBar from '../components/NavBar'
 
-import '../components/special/@styles.css'
+import '../components/special/@styles.scss'
 import Search from '../components/ClientSearch'
 
 // CSS
