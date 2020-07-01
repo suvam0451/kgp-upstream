@@ -13,7 +13,7 @@
   "main": "n/a",
   "scripts": {
     "build": "yarn build:client && yarn build:server",
-    "build:server": "tsc functions-ts/ytcard-read.ts --outDir ./functions && tsc functions-ts/ytcard-update.ts --outDir ./functions && netlfy-lambda build functions",
+    "build:server": "tsc functions-ts/ytcard-read.ts --outDir ./functions && tsc functions-ts/ytcard-update.ts --outDir ./functions && tsc functions-ts/ytcard-delete.ts --outDir ./functions && netlfy-lambda build functions",
     "build:client": "gatsby build",
     "clean": "rimraf public",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
@@ -21,7 +21,7 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "start": "gatsby develop",
     "run:lambda": "netlify-lambda serve functions",
-    "run:lambdax": "tsc ./functions-ts/ytcard-read.ts --outDir ./functions && tsc functions-ts/ytcard-update.ts --outDir ./functions && netlify-lambda serve functions",
+    "run:lambdax": "tsc ./functions-ts/ytcard-read.ts --outDir ./functions && tsc functions-ts/ytcard-update.ts --outDir ./functions && tsc functions-ts/ytcard-delete.ts --outDir ./functions && netlify-lambda serve functions",
     "test": "npm run type-check && npm run lint",
     "type-check": "tsc"
   },

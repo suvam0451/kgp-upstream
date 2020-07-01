@@ -15,7 +15,7 @@
       "**/.DS_Store": true,
       "yarn.lock": true,
       "LICENSE": true,
-      "functions": true,
+      "functions": false,
       ".prettierrc": true,
       "node_modules": true,
       "public": true,
