@@ -29,6 +29,7 @@ interface IIndexPageProps {
   updateLinkTest: string
   deleteLinkTest: string
 }
+
 function IndexPage(props: IIndexPageProps) {
   // STATE management
   const [myLinkArray, setMyLinkArray] = useState(<></>)
@@ -45,15 +46,15 @@ function IndexPage(props: IIndexPageProps) {
 
   React.useEffect(() => {
     if (initFlag) {
-      console.log('Calling it once...')
-
-      YTAPI.readcards(setMyLinkArray, setCarousalHidden, carousalHidden)
+      YTAPI.readcards(setMyLinkArray)
       setInitFlag(false)
     }
     let ex: RegExp = /www.youtube.com\/watch\?v=([_\-=a-zA-Z0-9]{11})/
     let updateTarget = updateCardsRef.current?.value!
 
     // Update color of input component
+    console.log('Okay', updateTarget)
+
     if (updateTarget !== '') {
       if (ex.test(updateTarget)) {
         setUpdateInputCSS('bp3-input bp3-intent-success')
@@ -73,8 +74,6 @@ function IndexPage(props: IIndexPageProps) {
   }, [carousalHidden, updateCardsRef.current?.value])
 
   function deletecards(_ref: React.RefObject<HTMLInputElement>) {
-    console.log('Delete function called...')
-    console.log(_ref.current?.value)
     return <></>
   }
 
@@ -136,11 +135,9 @@ function IndexPage(props: IIndexPageProps) {
               /> */}
           <div className="bp3-input-group .modifier">
             <input
-              onChange={() => {
-                // console.log('Input is', updateCardsRef.current?.value!)
-                setInsertValue(updateCardsRef.current?.value!)
-                //
-              }}
+              // onChange={() => {
+              //   setInsertValue(updateCardsRef.current?.value!)
+              // }}
               ref={updateCardsRef}
               type="url"
               className={updateInputCSS}

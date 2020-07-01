@@ -58,37 +58,26 @@ export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection:
 }
 
 /** Reads all the entries by Index. */
-export function readcards(
-  setSection: React.Dispatch<React.SetStateAction<JSX.Element>>,
-  setSwitch: React.Dispatch<React.SetStateAction<boolean>>,
-  valSwitch: boolean
-) {
+export function readcards(setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   setSection(<p>'Loading data...'</p>)
 
-  // If switch is pressed
-  if (valSwitch == true) {
-    _read().then((res: YoutubeCardResult) => {
-      const retval: any = [] // Returned React component
-      if (typeof res == 'undefined') {
-        // console.log('Failed to obtain API data')
-      } else {
-        // loop out the inks
-        let cardlinks: string[] = []
-        res.data.forEach(linkobject => {
-          cardlinks = cardlinks.concat([linkobject])
-        })
+  _read().then((res: YoutubeCardResult) => {
+    const retval: any = [] // Returned React component
+    if (typeof res == 'undefined') {
+      // console.log('Failed to obtain API data')
+    } else {
+      // loop out the inks
+      let cardlinks: string[] = []
+      res.data.forEach(linkobject => {
+        cardlinks = cardlinks.concat([linkobject])
+      })
 
-        console.log('Setting successful...')
+      console.log('Setting successful...')
 
-        retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
-        setSection(retval)
-      }
-    })
-    // setSwitch(false)
-  } else {
-    // hide carousal element if already visible
-    // setSwitch(true)
-  }
+      retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
+      setSection(retval)
+    }
+  })
 }
 
 export interface IResponse {
