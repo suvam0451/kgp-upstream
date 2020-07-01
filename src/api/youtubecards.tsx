@@ -36,22 +36,12 @@ export interface IResponseWithBody {
 export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   if (typeof _ref.current != 'undefined') {
     let val = _ref.current!.value
-    // setSection(<p>Processing query...</p>)
     _update(val).then(res => {
-      // console.log('Now printing information...')
-      // console.log(res, res.requestResult.statusCode)
-      console.log(res)
       if (typeof res != 'undefined') {
-        setSection(<p>Successfully added entry for {res.data.id}...</p>)
+        setSection(<p>Successfully added entry for {res.data.id}. Refreshing...</p>)
+        readcards(setSection)
       } else {
-        setSection(
-          <p>
-            <b>
-              <i>Duplicate detected for {val}</i>
-            </b>
-          </p>
-        )
-        // setSection(<p>Successfully added entry for {res.data.id}...</p>)
+        // Print debug message for this
       }
     })
   }

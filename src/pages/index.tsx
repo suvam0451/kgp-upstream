@@ -71,7 +71,7 @@ function IndexPage(props: IIndexPageProps) {
     return () => {
       // cleanup
     }
-  }, [carousalHidden, updateCardsRef.current?.value])
+  }, [carousalHidden, updateCardsRef.current?.value, insertValue])
 
   function deletecards(_ref: React.RefObject<HTMLInputElement>) {
     return <></>
@@ -93,37 +93,26 @@ function IndexPage(props: IIndexPageProps) {
           <blockquote>I think the researchgate embed service is not active 24*7. The right section may appear empty, at times.</blockquote>
           <h3>Database provider</h3>
           <p>
-            We are using faunadb as our database provider. The free tier has a read operation limit of <b>100K requests/day</b>. It is
-            highly unlikely to reach that limit with a non-commercial website. The pricing beyond that starts at <b>$0.05 per 100K read</b>.
-            The benefit is that, due to this being a managed database, there is no price for server hosting and nobody has to maintain it.
-          </p>
-          <p>
-            That said, due to similar limitations, we cannot use it as a content database. That means no images, no videos can be stored.{' '}
-            <i>(Not to be confused with links. Links are texts. Google hosts youtube. Images are hosted externally)</i>
+            This is an example reel that would be generated and updated client-side. We are using faunadb as our database provider. The free
+            tier has a read operation limit of <b>100K requests/day</b>. It is highly unlikely to reach that limit with a non-commercial
+            website. The pricing beyond that starts at <b>$0.05 per 100K read</b>.
           </p>
 
-          <h3>Database queries</h3>
           <p>
-            Here is a demo for the database. The links are fetched from a faunadb database. Try flipping the button below{' '}
-            <i>(labelled display carousal)</i> to fetch the links. Leaving it unstyled for now, because the actual need of the project is
-            unknown.
+            If you enter a valid youtube link{' '}
+            <i>(that was not already present, in the database, this reel will auto-update and that link will be added)</i>
           </p>
-          {/* Database query section */}
-          {/* <Switch
-                label="Display Carousal"
-                onChange={() => {
-                  // YTAPI.readcards(setMyLinkArray, setCarousalHidden, carousalHidden)
-                  setCarousalHidden(!carousalHidden)
-                }}
-              /> */}
-          {/* CArousal section */}
           {carousalHidden ? null : <div>{myLinkArray}</div>}
-          <blockquote>After adding more links from the section below, try flipping the switch off and on again.</blockquote>
+          <blockquote>For now, if a link exists, nothing will happen. In that case, try a different link.</blockquote>
           <h3>Adding links</h3>
           <p>
-            We can add to the database from anywhere. Try one of these links. Paste them into the input section and press the lock icon. If
-            it's not a duplicate, it will get added. When we will turn the switch off and on above, we should get the updated links for the
-            carousal.
+            We can edit to the database from anywhere. Here are some unused links to try out. Paste them into the input section and press
+            the lock icon{' '}
+            <i>
+              (If something is wrong, the section should give a red outline. If the link seems fine, it will instead give green outline)
+            </i>
+            . If it's not a duplicate, it will get added. When we will turn the switch off and on above, we should get the updated links for
+            the carousal.
           </p>
           {/* Input group */}
           {/* <DataInput
@@ -135,9 +124,9 @@ function IndexPage(props: IIndexPageProps) {
               /> */}
           <div className="bp3-input-group .modifier">
             <input
-              // onChange={() => {
-              //   setInsertValue(updateCardsRef.current?.value!)
-              // }}
+              onChange={() => {
+                setInsertValue(updateCardsRef.current?.value!)
+              }}
               ref={updateCardsRef}
               type="url"
               className={updateInputCSS}
@@ -152,8 +141,12 @@ function IndexPage(props: IIndexPageProps) {
           </div>
           <div>{queryStatusSection}</div>
           <ul>
-            <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
-            <li>https://www.youtube.com/watch?v=6VJBBUqr1wM</li>
+            <li>
+              https://www.youtube.com/watch?v=6VJBBUqr1wM <i> -- (used)</i>
+            </li>
+            <li>
+              https://www.youtube.com/watch?v=jYUvzH4tCkA <i> -- (unused)</i>
+            </li>
           </ul>
           <p>It should have form validation and respond to invalid links</p>
           <p>
