@@ -1,4 +1,4 @@
 [build]
     functions = "lambda"
-    Command = "yarn build:client && yarn run build:server"
+    Command = "yarn build"
     publish = "public"
