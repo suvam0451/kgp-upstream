@@ -27,7 +27,6 @@ exports.handler = (event: any, context: any, callback: Function) => {
 
     return client.query(q.Paginate(q.Match(q.Index('all_cards'), [videoID, 'mainpage']))).then(
       (res: any) => {
-        console.log(res)
         // Check for empty response
         if (!Object.keys(res.data).length) {
           // console.log('Entry not found. adding...')
@@ -48,11 +47,12 @@ exports.handler = (event: any, context: any, callback: Function) => {
           }
         }
       },
-      err => {
-        // console.log('failure', err)
-        return {
-          status: 400,
-          body: JSON.stringify(err)
+      (err: any) => {
+        err => {
+          return {
+            status: 400,
+            body: JSON.stringify(err)
+          }
         }
       }
     )
