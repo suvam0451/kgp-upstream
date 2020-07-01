@@ -29,6 +29,6 @@ NetlifyPublish:
   cache: {}
   script:
     - yarn global add netlify-cli
-    - yarn netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --prod
+    - netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --prod
   dependencies:
     - GatsbyBuild
