@@ -45,6 +45,7 @@
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.1",
     "classnames": "^2.2.6",
+    "encoding": "^0.1.12",
     "faunadb": "^2.14.2",
     "gatsby": "^2.10.0",
     "gatsby-image": "^2.2.1",
@@ -74,12 +75,17 @@
     "tailwindcss": "^1.4.6"
   },
   "devDependencies": {
-    "typescript": "^3.5.2",
     "@types/classnames": "^2.2.8",
     "@types/node": "^12.0.10",
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "^6.6.0",
+    "eslint-config-blvd": "^1.0.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "gatsby-plugin-canonical-urls": "^2.1.0",
     "gatsby-plugin-emotion": "^4.1.0",
     "gatsby-plugin-postcss": "^2.3.4",
@@ -87,14 +93,9 @@
     "gatsby-plugin-sass": "^2.3.4",
     "gatsby-plugin-sharp": "^2.2.1",
     "gatsby-plugin-typescript": "^2.1.0",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
-    "@typescript-eslint/parser": "^2.6.0",
-    "eslint": "^6.6.0",
-    "eslint-config-blvd": "^1.0.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
     "gh-pages": "^2.0.1",
     "prettier": "^1.18.2",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.2"
   }
 }
