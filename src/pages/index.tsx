@@ -11,7 +11,7 @@ import DataInput from '../components/DataInput'
 import Sidebar from '../components/SidebarComponent'
 import NavBar from '../components/NavBar'
 import '../components/FontAwesomeLib'
-import '../components/special/@styles.css'
+import '../components/special/@styles.scss'
 
 function IndexPage() {
   interface LinkArray {
