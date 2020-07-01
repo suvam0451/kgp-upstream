@@ -147,6 +147,12 @@ function IndexPage(props: IIndexPageProps) {
             <li>
               https://www.youtube.com/watch?v=jYUvzH4tCkA <i> -- (unused)</i>
             </li>
+            <li>
+              https://www.youtube.com/watch?v=0SA8aCb3KYc <i> -- (unused)</i>
+            </li>
+            <li>
+              https://www.youtube.com/watch?v=WGsHz_XuCsI <i> -- (unused)</i>
+            </li>
           </ul>
           <p>It should have form validation and respond to invalid links</p>
           <p>
