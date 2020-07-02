@@ -1,4 +1,4 @@
-@import "../../mixins/library.scss";
+@import '../../mixins/library.scss';
 
 // hyperlinks
 a {
@@ -21,6 +21,13 @@ a {
   &:focus {
     color: #185380;
     outline: none;
+
+    // FontAwesome behavior
+    .svg-inline--fa {
+      &:hover {
+        color: blue;
+      }
+    }
   }
 
   &:active {

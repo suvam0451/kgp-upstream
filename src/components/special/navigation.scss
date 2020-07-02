@@ -9,7 +9,8 @@
     (src: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container)
 */
 
-@import "../../mixins/breakpoints.scss";
+@import '../../mixins/breakpoints.scss';
+@import '../../mixins/library.scss';
 
 // Elements will flex out to left and right
 .container_nextandback {
@@ -62,7 +63,7 @@ a.navitem {
 
 a.navitemActive {
   &::before {
-    content: "";
+    content: '';
     width: 5px;
     position: absolute;
     left: -20px;
@@ -92,5 +93,31 @@ div.area_scrollable {
   @include apply_for(mobile) {
     padding: 1rem;
     padding-top: 3rem;
+  }
+}
+
+@keyframes scrollTop {
+  from {
+    transform: translateY(2px);
+  }
+  to {
+    transform: translateY(-1px);
+  }
+}
+
+.scroll_to_top {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  left: 80%;
+  bottom: 20px;
+  z-index: 100;
+  > .icon {
+    margin-top: 10px;
+    animation: scrollTop 0.5s alternate ease infinite;
+  }
+
+  @include apply_for(pc) {
+    left: 90%;
   }
 }

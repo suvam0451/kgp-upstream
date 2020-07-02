@@ -1,4 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import Library from '../components/FontAwesomeLib'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { useWindowScroll } from 'react-use'
 import { Link } from 'gatsby'
 
 import { Helmet } from 'react-helmet'
@@ -10,6 +14,8 @@ import YTAPI from '../api/youtubecards'
 import DataInput from '../components/DataInput'
 import Sidebar from '../components/SidebarComponent'
 import NavBar from '../components/NavBar'
+import { ScrollToTop } from '../components/ScrollToTop'
+
 import '../components/FontAwesomeLib'
 import '../components/special/@styles.scss'
 
@@ -18,6 +24,7 @@ function IndexPage() {
     label: string
     link: string
     internal?: boolean
+    iconfa?: string
   }
 
   const FooterLinkData: LinkArray[][] = [
@@ -36,7 +43,8 @@ function IndexPage() {
       },
       {
         label: 'Web Mail',
-        link: 'https://iitkgpmail.iitkgp.ac.in/'
+        link: 'https://iitkgpmail.iitkgp.ac.in/',
+        iconfa: 'envelope'
       }
     ],
     [
@@ -59,7 +67,12 @@ function IndexPage() {
   const [queryStatusSection, setQueryStatusSection] = useState(<></>)
   const updateCardsRef = useRef<HTMLInputElement>(null)
   const deleteCardsRef = useRef<HTMLInputElement>(null)
-
+  const { y: pageYOffset } = useWindowScroll()
+  function handleScroll() {}
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {}
+  }, [])
   function deletecards(_ref: React.RefObject<HTMLInputElement>) {
     console.log('Delete function called...')
     console.log(_ref.current?.value)
@@ -70,11 +83,22 @@ function IndexPage() {
     let retval: any = []
     FooterLinkData[index].forEach(pair => {
       if (typeof pair.internal == 'undefined') {
-        retval.push(
-          <li>
-            <a href={pair.link}>{pair.label}</a>
-          </li>
-        )
+        if (typeof pair.iconfa == 'undefined') {
+          retval.push(
+            <li>
+              <a href={pair.link}>{pair.label}</a>
+            </li>
+          )
+        } else {
+          retval.push(
+            <li>
+              <a href={pair.link}>
+                <FontAwesomeIcon icon="envelope" color="white" />
+                {pair.label}
+              </a>
+            </li>
+          )
+        }
       } else {
         retval.push(
           <li>
@@ -83,6 +107,7 @@ function IndexPage() {
         )
       }
     })
+
     return <ul>{retval}</ul>
   }
   return (
@@ -91,11 +116,14 @@ function IndexPage() {
         <Helmet></Helmet>
         <NavBar />
         <Sidebar SectionIdx={0} />
+        <ScrollToTop />
+        <div className="scroll_to_top"></div>
         <div className="area_scrollable">
           <div className="container_mainpage">
             <div className="layout_mainpage" />
             <div className="layout_mainpage">
               <h1>Introduction page</h1>
+
               <p>
                 This means that, right now anyone with access to this page can add/remove videos. Of course, we won't need that in
                 aproduction site. This is just to demonstrate that videos can be dynamically added via youtube/facebook API... or someone
