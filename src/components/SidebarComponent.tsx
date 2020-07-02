@@ -28,7 +28,7 @@ export default function Sidebar(props: ISidebarTypeCProps) {
       label: 'Dynamic Menus'
     },
     {
-      link: '/licenses',
+      link: '/licensing',
       label: 'Libraries/Licensing'
     },
     {

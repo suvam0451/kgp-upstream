@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { YoutubeExhibit } from '../components/special/YoutubeExhibit'
+import { resolve } from 'dns'
 
 interface IYoutubeEmbed {
   link: string
@@ -13,6 +14,19 @@ export interface YoutubeCardResult {
   ts: number
   data: string[]
 }
+
+// 200
+export interface IResultYTCardUpdate {
+  ref: any
+  ts: number
+  data: {
+    id: string
+    link: string
+    desc: string
+    tags: string
+  }
+}
+
 export interface IResponseWithBody {
   status: number
   payload: any
@@ -22,62 +36,38 @@ export interface IResponseWithBody {
 export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   if (typeof _ref.current != 'undefined') {
     let val = _ref.current!.value
-    setSection(<p>Processing query...</p>)
     _update(val).then(res => {
-      console.log('Now printing information...')
-      console.log(res, res.requestResult.statusCode)
-      switch (res.requestResult.statusCode) {
-        case 201: {
-          setSection(<p>Successfully added entry...</p>)
-          break
-        }
-        case 409: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
-        case 400: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
-        default: {
-          setSection(<p>Entry already exists. Skipping...</p>)
-          break
-        }
+      if (typeof res != 'undefined') {
+        setSection(<p>Successfully added entry for {res.data.id}. Refreshing...</p>)
+        readcards(setSection)
+      } else {
+        // Print debug message for this
       }
     })
   }
 }
 
 /** Reads all the entries by Index. */
-export function readcards(
-  setSection: React.Dispatch<React.SetStateAction<JSX.Element>>,
-  setSwitch: React.Dispatch<React.SetStateAction<boolean>>,
-  valSwitch: boolean
-) {
+export function readcards(setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   setSection(<p>'Loading data...'</p>)
 
-  // If switch is pressed
-  if (valSwitch == true) {
-    _read().then((res: YoutubeCardResult) => {
-      const retval: any = [] // Returned React component
-      if (typeof res == 'undefined') {
-        // console.log('Failed to obtain API data')
-      } else {
-        // loop out the inks
-        let cardlinks: string[] = []
-        res.data.forEach(linkobject => {
-          cardlinks = cardlinks.concat([linkobject])
-        })
+  _read().then((res: YoutubeCardResult) => {
+    const retval: any = [] // Returned React component
+    if (typeof res == 'undefined') {
+      // console.log('Failed to obtain API data')
+    } else {
+      // loop out the inks
+      let cardlinks: string[] = []
+      res.data.forEach(linkobject => {
+        cardlinks = cardlinks.concat([linkobject])
+      })
 
-        retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
-        setSection(retval)
-      }
-    })
-    setSwitch(false)
-  } else {
-    // hide carousal element if already visible
-    setSwitch(true)
-  }
+      console.log('Setting successful...')
+
+      retval.push(<YoutubeExhibit cardlinks={cardlinks} />)
+      setSection(retval)
+    }
+  })
 }
 
 export interface IResponse {
@@ -94,12 +84,25 @@ async function _read() {
     })
 }
 
-async function _update(data: string) {
+async function _update(data: string): Promise<IResultYTCardUpdate | undefined> {
   return fetch('/.netlify/functions/ytcard-update', {
     method: 'PUT',
     body: JSON.stringify(data)
   }).then(res => {
-    return res.json() // results appended to "res.requestResult"
+    return new Promise<IResultYTCardUpdate | undefined>((resolve, reject) => {
+      switch (res.status) {
+        case 201: {
+          resolve(res.json()) // results appended to "res.requestResult"
+        }
+        case 400: {
+          resolve(undefined)
+          // return
+        }
+        default: {
+          resolve(undefined)
+        }
+      }
+    })
   })
 }
 

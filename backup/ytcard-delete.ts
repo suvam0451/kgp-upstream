@@ -1,11 +1,7 @@
 import { query as q, Client } from 'faunadb'
-import axios from 'axios'
-import { callbackify } from 'util'
-import { resolve } from 'dns'
-import { Link } from 'gatsby'
 
 /* */
-exports.handler = (event: any, context: any, callback: Function) => {
+exports.handler = async (event: any, context: any, callback: Function) => {
   const client = new Client({
     secret: process.env.FAUNADB_SECRET_SUMMERINTERN!
   })
@@ -30,27 +26,27 @@ exports.handler = (event: any, context: any, callback: Function) => {
         console.log(res)
         // Check for empty response
         if (!Object.keys(res.data).length) {
-          // console.log('Entry not found. adding...')
-          return client.query(q.Create(q.Collection('youtubecards'), exportItem)).then(res => {
-            return {
-              status: 201, // Created
-              body: JSON.stringify(res)
-            }
-          })
-        } else {
-          // entry already exists
-          //   console.log('Entry found. Skipping...')
           return {
             status: 409, // Conflict
             body: JSON.stringify([])
           }
+        } else {
+          // Entry found... deleting
+          return client.query(q.Delete(q.Ref(q.Collection('spells')))).then(ret => {
+            console.log(ret)
+            return {
+              status: 409, // Conflict
+              body: JSON.stringify([])
+            }
+          })
         }
       },
-      err => {
-        // console.log('failure', err)
-        return {
-          status: 400,
-          body: JSON.stringify(err)
+      (err: any) => {
+        err => {
+          return {
+            status: 400,
+            body: JSON.stringify(err)
+          }
         }
       }
     )

@@ -10,6 +10,7 @@ import Search from '../components/ClientSearch'
 import '../styles/gatsby-custom.scss'
 import { Footer } from '../components/Decorators'
 import Sidebar from '../components/SidebarComponent'
+import { DocPage } from '../components/PageLayouts'
 
 interface PageTemplateProps {
   data: {
@@ -45,25 +46,12 @@ function PageTemplate(query: PageTemplateProps) {
         <Helmet></Helmet>
         <NavBar />
         <Sidebar SectionIdx={fm.idx_sidebar} />
-        <div className="area_scrollable">
-          <div className="container_mainpage">
-            <div className="layout_mainpage" />
-            <div className="layout_mainpage">
-              <Search books={context.bookData.allBooks} engine={context.bookData.options} placeholder="Search for books" />
-              <h1>{query.data.markdownRemark.frontmatter.title}</h1>
-              {/* eslint-disable-next-line react/no-danger */}
-              <div dangerouslySetInnerHTML={{ __html: query.data.markdownRemark.html }} />
-            </div>
-            {/* Last element (required in sass) */}
-            <div className="layout_mainpage">
-              <iframe
-                className="researchgate_embed"
-                src="https://www.researchgate.net/plugins/department?stats=true&faces=true&publications=true&height=600&width=300&theme=light&type=department&installationId=5ef18e2b12eb0b14a569b35c"
-              />
-            </div>
-          </div>
-        </div>
-        <Footer />
+        <DocPage>
+          <Search books={context.bookData.allBooks} engine={context.bookData.options} placeholder="Search for books" />
+          <h1>{query.data.markdownRemark.frontmatter.title}</h1>
+          {/* eslint-disable-next-line react/no-danger */}
+          <div dangerouslySetInnerHTML={{ __html: query.data.markdownRemark.html }} />
+        </DocPage>
       </div>
     </>
   )
@@ -93,3 +81,4 @@ export const query = graphql`
     }
   }
 `
+// c=c!===c??c+c++:
