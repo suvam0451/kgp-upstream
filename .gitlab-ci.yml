@@ -24,12 +24,16 @@ GatsbyBuild:
   artifacts:
     paths:
       - ./public/*
-      - ./functions/*
-      # - ./lambda/* # IF using separate build step
-# NetlifyPublish:
-#   stage: publish
-#   cache: {}
-#   script:
+      - ./lambda/* # IF using separate build step
+      # - ./functions/* # IF debugging TS
 
-#   dependencies:
-#     - GatsbyBuild
+NetlifyPublish:
+  stage: publish
+  cache: {}
+  script:
+    - yarn global add netlify-cli
+    - netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --prod
+  dependencies:
+    - GatsbyBuild
+  only:
+    - tags
