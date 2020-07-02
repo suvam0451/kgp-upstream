@@ -1,15 +1,9 @@
 import React, { useState, useRef, memo } from 'react'
-import { Link } from 'gatsby'
-
-import { Helmet } from 'react-helmet'
-import { Footer, ForwardBackNavSection } from '../components/Decorators'
-import { Switch, Icon, Intent } from '@blueprintjs/core'
+import { Footer } from '../components/Decorators'
+import { GatsbyLinkFA, IGatsbyLinkFAProps } from './LinkComponents'
+import { ScrollToTop } from './ScrollToTop'
 
 // FontAwesome
-import YTAPI from '../api/youtubecards'
-import DataInput from '../components/DataInput'
-import Sidebar from '../components/SidebarComponent'
-import NavBar from '../components/NavBar'
 import '../components/FontAwesomeLib'
 import '../components/special/@styles.scss'
 
@@ -24,7 +18,7 @@ interface LinkArray {
 }
 
 export function DocPage(props: IDocPageProps) {
-  const FooterLinkData: LinkArray[][] = [
+  const FooterLinkData: IGatsbyLinkFAProps[][] = [
     [
       {
         label: 'Curriculum(UG)',
@@ -60,25 +54,24 @@ export function DocPage(props: IDocPageProps) {
   function FooterLinkSection(index: number) {
     let retval: any = []
     FooterLinkData[index].forEach(pair => {
-      if (typeof pair.internal == 'undefined') {
-        retval.push(
-          <li>
-            <a href={pair.link}>{pair.label}</a>
-          </li>
-        )
-      } else {
-        retval.push(
-          <li>
-            <Link to={pair.link}>{pair.label}</Link>
-          </li>
-        )
-      }
+      retval.push(
+        <li>
+          <GatsbyLinkFA
+            label={pair.label}
+            link={pair.link}
+            internal={pair.internal ? pair.internal : false}
+            icon={pair.icon}
+            iconcolor="white"
+          />
+        </li>
+      )
     })
     return <ul>{retval}</ul>
   }
 
   return (
     <>
+      <ScrollToTop />
       <div className="area_scrollable">
         <div className="container_mainpage">
           <div className="layout_mainpage" />

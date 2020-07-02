@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 // Popover and menus
 import { PopoverX } from '../components/MenuSection'
-import { Z_DEFAULT_STRATEGY } from 'zlib'
 
 interface ISidebarTypeCProps {
   SectionIdx: number
