@@ -32,7 +32,9 @@ export interface IResponseWithBody {
   payload: any
 }
 
-/** Adds an entry if doesn't exist. */
+/** Adds entry to database, if not exist.
+ * @param setSection The section reference that should be updated with the log info.
+ */
 export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   if (typeof _ref.current != 'undefined') {
     let val = _ref.current!.value
@@ -47,7 +49,16 @@ export function updatecards(_ref: React.RefObject<HTMLInputElement>, setSection:
   }
 }
 
-/** Reads all the entries by Index. */
+/** Tries to delete an entry by ID.
+ * @param setSection The section reference that should be updated with the log info.
+ */
+export function deletecards(setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
+  setSection(<p>Deleting...</p>)
+}
+
+/** Reads all the entries, using an index.
+ * @param setSection The section reference that should be updated with the resulting carousal.
+ */
 export function readcards(setSection: React.Dispatch<React.SetStateAction<JSX.Element>>) {
   setSection(<p>'Loading data...'</p>)
 

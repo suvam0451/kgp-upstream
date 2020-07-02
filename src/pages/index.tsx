@@ -72,10 +72,8 @@ export default function IndexPage() {
   const updateCardsRef = useRef<HTMLInputElement>(null)
   const deleteCardsRef = useRef<HTMLInputElement>(null)
 
-  const { y: pageYOffset } = useWindowScroll()
-  function handleScroll() {}
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    YTAPI.readcards(setMyLinkArray)
     return () => {}
   }, [])
 

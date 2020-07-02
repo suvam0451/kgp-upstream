@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useWindowScroll, useGetSetState } from 'react-use'
-
 import axios, { AxiosRequestConfig } from 'axios'
+import Library from '../components/FontAwesomeLib'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 interface IScrollToTopProps {}
 
 export function ScrollToTop(props: IScrollToTopProps) {
@@ -23,7 +25,7 @@ export function ScrollToTop(props: IScrollToTopProps) {
   }
   return (
     <div className="scroll_to_top cursor-pointer text-center" onClick={scrollToTop}>
-      <i className="icon fas fa-chevron-up" />
+      <FontAwesomeIcon icon="chevron-circle-up" color="green" height="48px" width="48px" />
     </div>
   )
 }
