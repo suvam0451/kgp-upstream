@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Popover and menus
-import { PopoverX } from '../components/MenuSection'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 interface IGatsbyLinkProps {
